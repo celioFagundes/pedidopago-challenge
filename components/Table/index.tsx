@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import {
+  AvatarNameContainer,
+  Name,
   Status,
   TableBodyContainer,
   TableContainer,
@@ -19,6 +21,7 @@ interface StatusProps {
 }
 interface AvatarProps {
   url: string
+  name: string
 }
 const Table = (props: MainProps) => {
   return <TableContainer>{props.children}</TableContainer>
@@ -41,17 +44,20 @@ const TableTd = (props: StatusProps) => {
 const TableStatus = (props: StatusProps) => {
   return <Status status={props.status}>{props.children}</Status>
 }
-const TableAvatar = (props: AvatarProps) => {
+const TableAvatarAndName = (props: AvatarProps) => {
   return (
-    <Image
-      src={props.url}
-      layout='fixed'
-      height={32}
-      width={32}
-      objectFit='cover'
-      alt='avatar'
-      style={{ borderRadius: '50%'}}
-    />
+    <AvatarNameContainer>
+      <Image
+        src={props.url}
+        layout='fixed'
+        height={32}
+        width={32}
+        objectFit='cover'
+        alt='avatar'
+        style={{ borderRadius: '50%' }}
+      />
+      <Name>{props.name}</Name>
+    </AvatarNameContainer>
   )
 }
 
@@ -61,5 +67,5 @@ Table.Row = TableRow
 Table.Th = TableTh
 Table.Td = TableTd
 Table.Status = TableStatus
-Table.Avatar = TableAvatar
+Table.AvatarAndName = TableAvatarAndName
 export default Table

@@ -32,14 +32,6 @@ export const Th = styled.th`
   padding: 16px;
 `
 export const Td = styled.td<StatusProps>`
-  position: relative;
-  &:nth-of-type(1) {
-    display: grid;
-    grid-template-columns: 0.3fr 1fr;
-    grid-gap:0;
-    align-items: center;
-    font-weight: 500;
-  }
   color: ${props => (props.status === 'active' ? '#587169' : '#A3B8B0')};
   border-bottom: 1px solid #eaefed;
   font-family: 'Poppins';
@@ -65,4 +57,14 @@ export const Status = styled.div<StatusProps>`
   text-transform: capitalize;
   background-color: ${props => (props.status === 'inactive' ? '#EAEFED' : '#B5F1DD')};
   color: ${props => (props.status === 'inactive' ? '#A3B8B0' : '#587169')};
+`
+export const AvatarNameContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`
+export const Name = styled.p`
+  margin-left: 8px;
+  font-weight: 500;
 `
