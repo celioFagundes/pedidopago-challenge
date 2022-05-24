@@ -44,7 +44,7 @@ export const UserData = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-left:10px;
+  margin-left: 10px;
 `
 export const Username = styled.p`
   font-size: 14px;
@@ -54,3 +54,18 @@ export const Data = styled.p`
   font-size: 12px;
   font-weight: 400;
 `
+export const Container = styled.section`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 100%;
+  background-color: #f8faf9;
+`
+export const Sidebar = styled.aside`
+  display: inline-block;
+  height: 100%;
+  width: 256px;
+  background-color: #fff;
+  border-right: 1px solid #eaefed;
+  box-shadow: 0px 4px 8px rgba(165, 171, 179, 0.16);
+`
+export const Main = styled.section``

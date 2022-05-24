@@ -1,6 +1,18 @@
 import Image from 'next/image'
 import React from 'react'
-import { Data, Header, LogoContainer, UserAvatar, UserContainer, UserData, Username, Wrapper } from './styles'
+import {
+    Container,
+  Data,
+  Header,
+  LogoContainer,
+  Main,
+  Sidebar,
+  UserAvatar,
+  UserContainer,
+  UserData,
+  Username,
+  Wrapper,
+} from './styles'
 
 interface MainProps {
   children?: React.ReactNode
@@ -10,7 +22,7 @@ const Layout = (props: MainProps) => {
     <Wrapper>
       <Header>
         <LogoContainer>
-          <Image  src = '/pedido-pago-logo.png' alt ='brand logo' height={35} width = {35}/>
+          <Image src='/pedido-pago-logo.png' alt='brand logo' height={35} width={35} />
         </LogoContainer>
         <UserContainer>
           <UserAvatar>LZ</UserAvatar>
@@ -20,7 +32,10 @@ const Layout = (props: MainProps) => {
           </UserData>
         </UserContainer>
       </Header>
-      {props.children}
+      <Container>
+        <Sidebar/>
+        <Main>{props.children}</Main>
+      </Container>
     </Wrapper>
   )
 }

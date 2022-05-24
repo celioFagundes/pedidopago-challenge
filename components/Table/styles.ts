@@ -4,7 +4,6 @@ type StatusProps = {
   status?: string | boolean
 }
 export const TableContainer = styled.table`
-  margin-top: 20px;
   border-spacing: 0;
 `
 export const TableHeaderContainer = styled.thead``
