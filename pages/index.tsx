@@ -1,16 +1,20 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Table from '../components/Table/index'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import {  MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import Layout from '../components/Layout'
 import {
   BottomContainer,
   Container,
   Content,
   ListTitle,
+  ModalButton,
+  ModalMenu,
+  ModalOption,
+  ModalOptionIcon,
+  ModalOptionLink,
   PageTitle,
   Tab,
   Tabs,
@@ -21,6 +25,8 @@ import { useRouter } from 'next/router'
 import SearchInput from '../components/SearchInput'
 import SelectQuantity from '../components/Select'
 import Pagination from '../components/Pagination'
+import { AiOutlineEye } from 'react-icons/ai'
+import { RiDeleteBinLine } from 'react-icons/ri'
 interface Agent {
   agent_id: number
   name: string
@@ -28,14 +34,49 @@ interface Agent {
   department: string
   branch: string
   role: string
-  status: boolean
+  status: string
 }
 interface MainProps {
   data: [Agent]
 }
+
+interface ModalIsOpenList {
+  [key: number]: boolean
+}
 const Home: React.FC<MainProps> = ({ data }) => {
   const [displayData, setDisplayData] = useState(data)
+  const [modalIsOpenList, setModalIsOpenList] = useState<ModalIsOpenList>({})
   const router = useRouter()
+
+  useEffect(() => {
+    const modalList = displayData.reduce((prev, curr) => {
+      return { ...prev, [curr.agent_id]: false }
+    }, {})
+    setModalIsOpenList(modalList)
+  }, [displayData])
+
+  const toggleModal = (id: number) => {
+    let newList = { ...modalIsOpenList }
+    Object.keys(newList).forEach(item => (newList[Number(item)] = false))
+    newList[id] = true
+    setModalIsOpenList(newList)
+  }
+  const anyModalOpen = () => {
+    let isOpen = false
+    Object.keys(modalIsOpenList).forEach(item => {
+      if (modalIsOpenList[Number(item)]) {
+        isOpen = true
+      }
+    })
+    return isOpen
+  }
+  const closeModal = () => {
+    if (anyModalOpen()) {
+      let newList = { ...modalIsOpenList }
+      Object.keys(newList).forEach(item => (newList[Number(item)] = false))
+      setModalIsOpenList(newList)
+    }
+  }
 
   return (
     <div>
@@ -45,7 +86,7 @@ const Home: React.FC<MainProps> = ({ data }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout>
-        <Wrapper>
+        <Wrapper onClick={closeModal}>
           <Container>
             <PageTitle>Organização</PageTitle>
             <Content>
@@ -83,10 +124,39 @@ const Home: React.FC<MainProps> = ({ data }) => {
                             <Table.Td status={agent.status}>{agent.role}</Table.Td>
                             <Table.Td status={agent.status}>{agent.branch}</Table.Td>
                             <Table.Td>
-                              <Table.Status status={agent.status}> {agent.status}</Table.Status>
+                              <Table.Status status={agent.status}>
+                                {agent.status === 'active' ? 'Ativo' : 'Inativo'}
+                              </Table.Status>
                             </Table.Td>
                             <Table.Td>
-                              <BsThreeDotsVertical size={16} color={'#587169'} />
+                              <ModalButton onClick={() => toggleModal(agent.agent_id)}>
+                                <BsThreeDotsVertical size={16} />
+                              </ModalButton>
+
+                              {modalIsOpenList[agent.agent_id] && (
+                                <ModalMenu>
+                                  <Link href={`/colaborador/${agent.agent_id}`}>
+                                    <ModalOption>
+                                      <ModalOptionIcon>
+                                        <AiOutlineEye size={22} />
+                                      </ModalOptionIcon>
+
+                                      <ModalOptionLink isActive={true}>
+                                        Ver colaborador
+                                      </ModalOptionLink>
+                                    </ModalOption>
+                                  </Link>
+                                  <Link href='#'>
+                                    <ModalOption>
+                                      <ModalOptionIcon>
+                                        <RiDeleteBinLine size={22} />
+                                      </ModalOptionIcon>
+
+                                      <ModalOptionLink isActive={false}>Excluir</ModalOptionLink>
+                                    </ModalOption>
+                                  </Link>
+                                </ModalMenu>
+                              )}
                             </Table.Td>
                           </Table.Row>
                         )
@@ -95,8 +165,8 @@ const Home: React.FC<MainProps> = ({ data }) => {
                 </Table>
               )}
               <BottomContainer>
-                <SelectQuantity/>
-                <Pagination/>
+                <SelectQuantity />
+                <Pagination />
               </BottomContainer>
             </Content>
           </Container>

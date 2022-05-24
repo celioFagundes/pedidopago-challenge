@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
 
 type StatusProps = {
-  status?: string | boolean
+  status?: string
 }
 export const TableContainer = styled.table`
-  border-spacing: 0;
+  border-spacing: 0px;
+ 
 `
 export const TableHeaderContainer = styled.thead``
 export const TableBodyContainer = styled.tbody``
@@ -39,6 +40,8 @@ export const Td = styled.td<StatusProps>`
   font-size: 12px;
   line-height: 140%;
   padding: 16px;
+  position:relative;
+  
 `
 
 export const Status = styled.div<StatusProps>`

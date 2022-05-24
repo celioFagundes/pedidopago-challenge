@@ -1,13 +1,13 @@
 import styled from '@emotion/styled'
-import Link from 'next/link'
 
-type TabIsActive = {
+type IsActive = {
   isActive: boolean
 }
 export const Wrapper = styled.div`
   display: grid;
   place-items: center;
-  padding: 50px 0;
+  padding: 50px;
+  z-index:-1;
 `
 
 export const Container = styled.div``
@@ -30,7 +30,7 @@ export const Tabs = styled.div`
   margin: 40px 0;
   border-bottom: 1px solid #eaefed;
 `
-export const Tab = styled.a<TabIsActive>`
+export const Tab = styled.a<IsActive>`
   width: 200px;
   text-align: center;
   font-family: 'Poppins';
@@ -65,7 +65,43 @@ export const BottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top:24px;
+  margin-top: 24px;
+`
+export const ModalButton = styled.button`
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #587169;
+
+`
+export const ModalMenu = styled.div`
+  position: absolute;
+  right: 20px;
+  bottom: -90px;
+  background-color: #fff;
+  box-shadow: 0px 8px 24px rgba(165, 171, 179, 0.4);
+  border-radius: 8px;
+  z-index:5000;
 `
 
-
+export const ModalOption = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 25px 32px;
+  transition:all 100ms ease-in-out;
+  &:hover{
+    cursor:pointer;
+    background-color:#EDEDED;
+  }
+`
+export const ModalOptionIcon = styled.div`
+  margin-right: 16px;
+`
+export const ModalOptionLink = styled.a<IsActive>`
+  color: ${props => (props.isActive ? '#587169' : '#A3B8B0')};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  width: 140px;
+  `

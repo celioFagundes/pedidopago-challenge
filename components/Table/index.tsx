@@ -17,7 +17,7 @@ interface MainProps {
 }
 interface StatusProps {
   children?: React.ReactNode
-  status?: string | boolean
+  status?: string
 }
 interface AvatarProps {
   url: string
