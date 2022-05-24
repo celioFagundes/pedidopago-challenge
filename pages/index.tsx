@@ -113,7 +113,7 @@ const Home: React.FC<MainProps> = ({ data }) => {
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {displayData.map(
+                    {data.map(
                       agent =>
                         agent.agent_id !== 15 && (
                           <Table.Row key={agent.agent_id}>

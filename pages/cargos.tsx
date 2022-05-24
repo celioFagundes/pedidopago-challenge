@@ -1,47 +1,79 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect,  useState } from 'react'
 import Table from '../components/Table/index'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { MdKeyboardArrowDown, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import Layout from '../components/Layout'
 import {
   BottomContainer,
+  BottomContainerSingle,
   Container,
   Content,
   ListTitle,
-  Option,
+  ModalButton,
+  ModalMenu,
+  ModalOption,
+  ModalOptionIcon,
+  ModalOptionLink,
   PageTitle,
-  Pagination,
-  PaginationButton,
-  PaginationLabel,
-  SearchInput,
-  Select,
-  SelectContainer,
-  SelectDisplayQuantity,
-  SelectLabel,
   Tab,
   Tabs,
   Wrapper,
 } from './home'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-interface Agent {
-  agent_id: number
+import { useRouter } from 'next/router'
+import SearchInput from '../components/SearchInput'
+import Pagination from '../components/Pagination'
+import { AiOutlineEye } from 'react-icons/ai'
+import { RiDeleteBinLine } from 'react-icons/ri'
+interface Roles {
   name: string
-  image: string
-  department: string
-  branch: string
-  role: string
-  status: boolean
+  departament: string
+  agents_quantity: number
 }
 interface MainProps {
-  data: [Agent]
+  data: [Roles]
 }
-const Cargo: React.FC<MainProps> = ({ data }) => {
+
+interface ModalIsOpenList {
+  [key: string]: boolean
+}
+const Cargos: React.FC<MainProps> = ({ data }) => {
   const [displayData, setDisplayData] = useState(data)
+  const [modalIsOpenList, setModalIsOpenList] = useState<ModalIsOpenList>({})
   const router = useRouter()
+
+  useEffect(() => {
+    const modalList = displayData.reduce((prev, curr) => {
+      return { ...prev, [curr.name+curr.departament]: false }
+    }, {})
+    setModalIsOpenList(modalList)
+  }, [displayData])
+
+  const toggleModal = (key: string) => {
+    let newList = { ...modalIsOpenList }
+    Object.keys(newList).forEach(item => (newList[item] = false))
+    newList[key] = true
+    setModalIsOpenList(newList)
+  }
+  const anyModalOpen = () => {
+    let isOpen = false
+    Object.keys(modalIsOpenList).forEach(item => {
+      if (modalIsOpenList[item]) {
+        isOpen = true
+      }
+    })
+    return isOpen
+  }
+  const closeModal = () => {
+    if (anyModalOpen()) {
+      let newList = { ...modalIsOpenList }
+      Object.keys(newList).forEach(item => (newList[item] = false))
+      setModalIsOpenList(newList)
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -50,80 +82,72 @@ const Cargo: React.FC<MainProps> = ({ data }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout>
-        <Wrapper>
+        <Wrapper onClick={closeModal}>
           <Container>
             <PageTitle>Organização</PageTitle>
             <Content>
               <Tabs>
-              <Link href='/'>
-                  <Tab isActive = {router.pathname === '/'}>Colaboradores</Tab>
+                <Link href='/'>
+                  <Tab isActive={router.pathname === '/'}>Colaboradores</Tab>
                 </Link>
                 <Link href='/cargos'>
-                  <Tab isActive = {router.pathname !== '/'}>Cargos</Tab>
+                  <Tab isActive={router.pathname !== '/'}>Cargos</Tab>
                 </Link>
               </Tabs>
               <SearchInput />
-              <ListTitle>Listagem de colaboradores</ListTitle>
+              <ListTitle>Listagem de cargos</ListTitle>
               {data && (
                 <Table>
                   <Table.Header>
                     <Table.Row>
-                      <Table.Th>Nome Completo</Table.Th>
-                      <Table.Th>Departamento</Table.Th>
                       <Table.Th>Cargo</Table.Th>
-                      <Table.Th>Unidade</Table.Th>
-                      <Table.Th>Status</Table.Th>
+                      <Table.Th>Departamento</Table.Th>
+                      <Table.Th>Colaboradores</Table.Th>
                       <Table.Th></Table.Th>
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {displayData.map(
-                      agent =>
-                        agent.agent_id !== 15 && (
-                          <Table.Row key={agent.agent_id}>
-                            <Table.Td status={agent.status}>
-                              <Table.AvatarAndName url={agent.image} name={agent.name} />
-                            </Table.Td>
-                            <Table.Td status={agent.status}>{agent.department}</Table.Td>
-                            <Table.Td status={agent.status}>{agent.role}</Table.Td>
-                            <Table.Td status={agent.status}>{agent.branch}</Table.Td>
-                            <Table.Td>
-                              <Table.Status status={agent.status}> {agent.status}</Table.Status>
-                            </Table.Td>
-                            <Table.Td>
-                              <BsThreeDotsVertical size={16} color={'#587169'} />
-                            </Table.Td>
-                          </Table.Row>
-                        )
-                    )}
+                    {data.map(role => (
+                      <Table.Row key={role.name + role.departament}>
+                        <Table.Td>{role.name}</Table.Td>
+                        <Table.Td>{role.departament}</Table.Td>
+                        <Table.Td>{role.agents_quantity}</Table.Td>
+                        <Table.Td>
+                          <ModalButton onClick={() => toggleModal(role.name+role.departament)}>
+                            <BsThreeDotsVertical size={16} />
+                          </ModalButton>
+
+                          {modalIsOpenList[role.name+role.departament] && (
+                            <ModalMenu>
+                              <Link href={`/role/1`}>
+                                <ModalOption>
+                                  <ModalOptionIcon>
+                                    <AiOutlineEye size={22} />
+                                  </ModalOptionIcon>
+
+                                  <ModalOptionLink isActive={true}>Ver cargo</ModalOptionLink>
+                                </ModalOption>
+                              </Link>
+                              <Link href='#'>
+                                <ModalOption>
+                                  <ModalOptionIcon>
+                                    <RiDeleteBinLine size={22} />
+                                  </ModalOptionIcon>
+
+                                  <ModalOptionLink isActive={false}>Excluir</ModalOptionLink>
+                                </ModalOption>
+                              </Link>
+                            </ModalMenu>
+                          )}
+                        </Table.Td>
+                      </Table.Row>
+                    ))}
                   </Table.Body>
                 </Table>
               )}
-              <BottomContainer>
-                <SelectDisplayQuantity>
-                  <SelectLabel>Mostrando 10 de 50 registros</SelectLabel>
-                  <SelectContainer>
-                    <Select>
-                      <Option>5</Option>
-                      <Option>10</Option>
-                      <Option>20</Option>
-                      <Option>30</Option>
-                      <Option>40</Option>
-                      <Option>50</Option>
-                    </Select>
-                    <MdKeyboardArrowDown />
-                  </SelectContainer>
-                </SelectDisplayQuantity>
-                <Pagination>
-                  <PaginationButton>
-                    <MdKeyboardArrowLeft />
-                  </PaginationButton>
-                  <PaginationLabel>1 de 10</PaginationLabel>
-                  <PaginationButton>
-                    <MdKeyboardArrowRight />
-                  </PaginationButton>
-                </Pagination>
-              </BottomContainer>
+              <BottomContainerSingle>
+                <Pagination />
+              </BottomContainerSingle>
             </Content>
           </Container>
         </Wrapper>
@@ -133,12 +157,12 @@ const Cargo: React.FC<MainProps> = ({ data }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { data } = await axios.get('https://pp-api-desafio.herokuapp.com/agents')
+  const { data } = await axios.get('https://pp-api-desafio.herokuapp.com/roles')
   return {
     props: {
-      data: data.items,
+      data: data.roles,
     },
   }
 }
 
-export default Cargo
+export default Cargos

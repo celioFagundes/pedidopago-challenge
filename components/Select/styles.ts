@@ -10,6 +10,8 @@ export const Message = styled.p`
   font-weight: 400;
   font-size: 16px;
   color: #587169;
+  font-family: 'Poppins';
+
   margin-right: 24px;
 `
 
