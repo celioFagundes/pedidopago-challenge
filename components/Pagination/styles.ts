@@ -7,8 +7,15 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    border: 2px solid #b5f1dd;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 `
-export const Pagination = styled.div``
 export const PaginationButton = styled.button<buttonProps>`
   border: 1.4px solid;
   border-color: ${props => (props.isDisabled ? '#cad6d1' : '#709085')};
@@ -20,10 +27,13 @@ export const PaginationButton = styled.button<buttonProps>`
   &:nth-of-type(2) {
     border-radius: 0px 8px 8px 0px;
   }
-  &:hover{
+  &:hover {
     cursor: ${props => !props.isDisabled && 'pointer'};
     color: ${props => !props.isDisabled && '#000'};
     border-color: ${props => !props.isDisabled && '#000'};
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `
 export const PaginationLabel = styled.p`
@@ -33,4 +43,23 @@ export const PaginationLabel = styled.p`
   font-size: 16px;
   color: #587169;
   margin: 0 12px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+export const MobilePaginationLabel = styled.p`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: #587169;
+  margin: 0 12px;
+`
+export const MobilePagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `

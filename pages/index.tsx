@@ -1,15 +1,20 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
-import Table from '../components/Table/index'
+import { useEffect, useState } from 'react'
+import Table from '../components/TestTable'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Layout from '../components/Layout'
 import {
   BottomContainer,
   Container,
   Content,
+  DropdownActionLabel,
+  DropdownIcon,
+  DropdownItemData,
+  DropdownLabel,
   ListTitle,
+  ModalBackground,
   ModalButton,
   ModalMenu,
   ModalOption,
@@ -19,14 +24,18 @@ import {
   Tab,
   Tabs,
   Wrapper,
-} from './home'
+} from '../styles/styles-test'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchInput from '../components/SearchInput'
 import SelectQuantity from '../components/Select'
 import Pagination from '../components/Pagination'
-import { AiOutlineEye } from 'react-icons/ai'
+import { AiOutlineEye, AiOutlineFileAdd } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import SelectModal from '../components/SelectModal'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import Image from 'next/image'
+import { ActionsContainer, DotsIcon } from '../styles/styles-test'
 interface Agent {
   agent_id: number
   name: string
@@ -40,19 +49,22 @@ interface MainProps {
   data: [Agent]
 }
 
-interface ModalIsOpenList {
+interface IsOpenList {
   [key: number]: boolean
 }
 const Home: React.FC<MainProps> = ({ data }) => {
   const [displayData, setDisplayData] = useState(data)
-  const [modalIsOpenList, setModalIsOpenList] = useState<ModalIsOpenList>({})
+  const [modalIsOpenList, setModalIsOpenList] = useState<IsOpenList>({})
+  const [dropdownIsOpenList, setDropdownIsOpenList] = useState<IsOpenList>({})
+  const [modalCategoriesIsOpen, setModalCategoriesIsOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    const modalList = displayData.reduce((prev, curr) => {
+    const isOpenList = displayData.reduce((prev, curr) => {
       return { ...prev, [curr.agent_id]: false }
     }, {})
-    setModalIsOpenList(modalList)
+    setModalIsOpenList(isOpenList)
+    setDropdownIsOpenList(isOpenList)
   }, [displayData])
 
   const toggleModal = (id: number) => {
@@ -60,6 +72,16 @@ const Home: React.FC<MainProps> = ({ data }) => {
     Object.keys(newList).forEach(item => (newList[Number(item)] = false))
     newList[id] = true
     setModalIsOpenList(newList)
+  }
+  const toggleDropdown = (id: number) => {
+    let newList = { ...dropdownIsOpenList }
+    if (newList[id]) {
+      Object.keys(newList).forEach(item => (newList[Number(item)] = false))
+    } else {
+      Object.keys(newList).forEach(item => (newList[Number(item)] = false))
+      newList[id] = !newList[id]
+    }
+    setDropdownIsOpenList(newList)
   }
   const anyModalOpen = () => {
     let isOpen = false
@@ -77,7 +99,6 @@ const Home: React.FC<MainProps> = ({ data }) => {
       setModalIsOpenList(newList)
     }
   }
-
   return (
     <div style={{ width: '100%' }}>
       <Head>
@@ -98,6 +119,12 @@ const Home: React.FC<MainProps> = ({ data }) => {
                   <Tab isActive={router.pathname !== '/'}>Cargos</Tab>
                 </Link>
               </Tabs>
+              <SelectModal
+                isOpen={modalCategoriesIsOpen}
+                openFn={() => setModalCategoriesIsOpen(true)}
+                closeFn={() => setModalCategoriesIsOpen(false)}
+                label={'Colaboradores'}
+              />
               <SearchInput />
               <ListTitle>Listagem de colaboradores</ListTitle>
               {data && (
@@ -116,25 +143,56 @@ const Home: React.FC<MainProps> = ({ data }) => {
                     {data.map(
                       agent =>
                         agent.agent_id !== 15 && (
-                          <Table.Row key={agent.agent_id}>
-                            <Table.Td status={agent.status}>
+                          <Table.Row
+                            key={agent.agent_id}
+                            isActive={dropdownIsOpenList[agent.agent_id]}
+                            maxHeight={'90px'}
+                          >
+                            <Table.Td
+                              status={agent.status}
+                              onClick={() => toggleDropdown(agent.agent_id)}
+                            >
+                              <DropdownLabel>Nome Completo</DropdownLabel>
                               <Table.AvatarAndName url={agent.image} name={agent.name} />
+                              <DropdownIcon>
+                                {!dropdownIsOpenList[agent.agent_id] ? (
+                                  <MdOutlineKeyboardArrowDown />
+                                ) : (
+                                  <MdOutlineKeyboardArrowUp />
+                                )}
+                              </DropdownIcon>
                             </Table.Td>
-                            <Table.Td status={agent.status}>{agent.department}</Table.Td>
-                            <Table.Td status={agent.status}>{agent.role}</Table.Td>
-                            <Table.Td status={agent.status}>{agent.branch}</Table.Td>
+                            <Table.Td status={agent.status}>
+                              <DropdownLabel>Departamento</DropdownLabel>
+                              <DropdownItemData>{agent.department}</DropdownItemData>
+                            </Table.Td>
+                            <Table.Td status={agent.status}>
+                              <DropdownLabel>Cargo</DropdownLabel>
+                              <DropdownItemData>{agent.role}</DropdownItemData>
+                            </Table.Td>
+                            <Table.Td status={agent.status}>
+                              <DropdownLabel>Unidade</DropdownLabel>
+                              <DropdownItemData>{agent.branch}</DropdownItemData>
+                            </Table.Td>
                             <Table.Td>
+                              <DropdownLabel>Status</DropdownLabel>
                               <Table.Status status={agent.status}>
                                 {agent.status === 'active' ? 'Ativo' : 'Inativo'}
                               </Table.Status>
                             </Table.Td>
                             <Table.Td>
                               <ModalButton onClick={() => toggleModal(agent.agent_id)}>
-                                <BsThreeDotsVertical size={16} />
+                                <DotsIcon>
+                                  <BsThreeDotsVertical size={16} />
+                                </DotsIcon>
+                                <ActionsContainer>
+                                  <AiOutlineFileAdd size={24} color='#1DD195' />
+                                  <DropdownActionLabel>Ações</DropdownActionLabel>
+                                </ActionsContainer>
                               </ModalButton>
-
-                              {modalIsOpenList[agent.agent_id] && (
-                                <ModalMenu>
+                              <>
+                                <ModalBackground isOpen={modalIsOpenList[agent.agent_id]} />
+                                <ModalMenu isOpen={modalIsOpenList[agent.agent_id]}>
                                   <Link href={`/colaborador/${agent.agent_id}`}>
                                     <ModalOption>
                                       <ModalOptionIcon>
@@ -151,12 +209,11 @@ const Home: React.FC<MainProps> = ({ data }) => {
                                       <ModalOptionIcon>
                                         <RiDeleteBinLine size={22} />
                                       </ModalOptionIcon>
-
                                       <ModalOptionLink isActive={false}>Excluir</ModalOptionLink>
                                     </ModalOption>
                                   </Link>
                                 </ModalMenu>
-                              )}
+                              </>
                             </Table.Td>
                           </Table.Row>
                         )

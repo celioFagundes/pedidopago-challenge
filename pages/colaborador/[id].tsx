@@ -28,7 +28,7 @@ import {
   UserData,
   Username,
   Wrapper,
-} from '../home'
+} from '../../styles/home'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineArrowLeft } from 'react-icons/ai'

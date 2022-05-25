@@ -38,7 +38,7 @@ export const Th = styled.th`
 `
 export const Td = styled.td<StatusProps>`
   color: '#587169';
-  text-align:left;
+  text-align: left;
   color: ${props => props.status === 'inactive' && '#A3B8B0'};
   border-bottom: 1px solid #eaefed;
   font-family: 'Poppins';
@@ -46,7 +46,7 @@ export const Td = styled.td<StatusProps>`
   font-weight: 400;
   font-size: 12px;
   padding: 18px 16px;
-  width:100%;
+  width: 100%;
   position: relative;
 `
 
@@ -64,7 +64,7 @@ export const Status = styled.div<StatusProps>`
   border-radius: 80px;
   text-transform: capitalize;
   background-color: ${props => (props.status === 'inactive' ? '#EAEFED' : '#B5F1DD')};
-  color: ${props => (props.status === 'inactive' ? '#A3B8B0' : '#587169')};
+  color: ${props => (props.status === 'inactive' ? '#A3B8B0' : '#34423D')};
 `
 export const AvatarNameContainer = styled.div`
   position: relative;

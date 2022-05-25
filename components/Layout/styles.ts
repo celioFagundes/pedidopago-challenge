@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
 `
 export const Header = styled.header`
+position:relative;
   display: flex;
   background-color: #fff;
   justify-content: space-between;
@@ -13,6 +14,11 @@ export const Header = styled.header`
   width: 100%;
   padding: 0 32px;
   border-bottom: 1px solid #eaefed;
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+    padding: 0;
+    border-width: 2px;
+  }
 `
 export const LogoContainer = styled.div`
   display: flex;
@@ -21,6 +27,12 @@ export const LogoContainer = styled.div`
   height: 100%;
   padding-right: 32px;
   border-right: 1px solid #eaefed;
+  @media (max-width: 768px) {
+    
+    padding-right: 0px;
+    border: 0;
+    margin:0 auto;
+  }
 `
 export const UserContainer = styled.div`
   display: flex;
@@ -28,6 +40,14 @@ export const UserContainer = styled.div`
   align-items: center;
   padding-left: 32px;
   border-left: 1px solid #eaefed;
+  @media (max-width: 768px) {
+    padding-right: 0px;
+    padding-left: 16px;
+    border: 0;
+    position:absolute;
+    left:0px;
+    top:16px;
+  }
 `
 export const UserAvatar = styled.div`
   display: flex;
@@ -48,6 +68,9 @@ export const UserData = styled.div`
   justify-content: center;
   align-items: flex-end;
   margin-left: 10px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 export const Username = styled.p`
   font-size: 14px;
@@ -58,7 +81,7 @@ export const Data = styled.p`
   font-size: 12px;
   font-weight: 400;
   font-family: 'Poppins';
-  width:100%;
+  width: 100%;
 `
 export const Container = styled.section`
   display: grid;
@@ -68,6 +91,11 @@ export const Container = styled.section`
   background-color: #fff;
   height: 100%;
   width: 100%;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+  }
 `
 export const Sidebar = styled.aside`
   display: block;
@@ -76,9 +104,16 @@ export const Sidebar = styled.aside`
   max-width: 300px;
   border-right: 1px solid #fff;
   box-shadow: 0px 4px 8px rgba(165, 171, 179, 0.16);
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 export const Main = styled.section`
   padding: 50px;
   width: 100%;
   background-color: #f8faf9;
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `

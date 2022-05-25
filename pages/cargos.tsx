@@ -2,14 +2,19 @@ import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Table from '../components/Table/index'
+import Table from '../components/TestTable'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Layout from '../components/Layout'
 import {
   BottomContainerSingle,
   Container,
   Content,
+  DropdownActionLabel,
+  DropdownIcon,
+  DropdownItemData,
+  DropdownLabel,
   ListTitle,
+  ModalBackground,
   ModalButton,
   ModalMenu,
   ModalOption,
@@ -19,15 +24,18 @@ import {
   Tab,
   Tabs,
   Wrapper,
-} from './home'
+} from '../styles/styles-test'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchInput from '../components/SearchInput'
 import Pagination from '../components/Pagination'
-import { AiOutlineEye } from 'react-icons/ai'
+import { AiOutlineEye, AiOutlineFileAdd } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { FiEdit } from 'react-icons/fi'
-import {ImStack} from 'react-icons/im'
+import { ImStack } from 'react-icons/im'
+import SelectModal from '../components/SelectModal'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { ActionsContainer, DotsIcon } from '../styles/styles-test'
 interface Roles {
   name: string
   departament: string
@@ -37,12 +45,14 @@ interface MainProps {
   data: [Roles]
 }
 
-interface ModalIsOpenList {
+interface IsOpenList {
   [key: string]: boolean
 }
 const Cargos: React.FC<MainProps> = ({ data }) => {
   const [displayData, setDisplayData] = useState(data)
-  const [modalIsOpenList, setModalIsOpenList] = useState<ModalIsOpenList>({})
+  const [modalCategoriesIsOpen, setModalCategoriesIsOpen] = useState(false)
+  const [modalIsOpenList, setModalIsOpenList] = useState<IsOpenList>({})
+  const [dropdownIsOpenList, setDropdownIsOpenList] = useState<IsOpenList>({})
   const router = useRouter()
 
   useEffect(() => {
@@ -57,6 +67,16 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
     Object.keys(newList).forEach(item => (newList[item] = false))
     newList[key] = true
     setModalIsOpenList(newList)
+  }
+  const toggleDropdown = (id: string) => {
+    let newList = { ...dropdownIsOpenList }
+    if (newList[id]) {
+      Object.keys(newList).forEach(item => (newList[item] = false))
+    } else {
+      Object.keys(newList).forEach(item => (newList[item] = false))
+      newList[id] = !newList[id]
+    }
+    setDropdownIsOpenList(newList)
   }
   const anyModalOpen = () => {
     let isOpen = false
@@ -95,6 +115,12 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                   <Tab isActive={router.pathname !== '/'}>Cargos</Tab>
                 </Link>
               </Tabs>
+              <SelectModal
+                isOpen={modalCategoriesIsOpen}
+                openFn={() => setModalCategoriesIsOpen(true)}
+                closeFn={() => setModalCategoriesIsOpen(false)}
+                label={'Cargos'}
+              />
               <SearchInput />
               <ListTitle>Listagem de cargos</ListTitle>
               {data && (
@@ -109,18 +135,46 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                   </Table.Header>
                   <Table.Body>
                     {data.map(role => (
-                      <Table.Row key={role.name + role.departament}>
-                        <Table.Td>{role.name}</Table.Td>
-                        <Table.Td>{role.departament}</Table.Td>
-                        <Table.Td>{role.agents_quantity}</Table.Td>
+                      <Table.Row
+                        key={role.name + role.departament}
+                        isActive={dropdownIsOpenList[role.name + role.departament]}
+                        maxHeight={'70px'}
+                      >
+                        <Table.Td onClick={() => toggleDropdown(role.name + role.departament)}>
+                          <DropdownLabel>Cargo</DropdownLabel>
+                          <DropdownItemData>{role.name}</DropdownItemData>
+                          <DropdownIcon>
+                            {!dropdownIsOpenList[role.name + role.departament] ? (
+                              <MdOutlineKeyboardArrowDown />
+                            ) : (
+                              <MdOutlineKeyboardArrowUp />
+                            )}
+                          </DropdownIcon>
+                        </Table.Td>
+                        <Table.Td>
+                          <DropdownLabel>Departamento</DropdownLabel>
+                          <DropdownItemData>{role.departament}</DropdownItemData>
+                        </Table.Td>
+                        <Table.Td>
+                          <DropdownLabel>Colaboradores</DropdownLabel>
+                          <DropdownItemData>{role.agents_quantity}</DropdownItemData>
+                        </Table.Td>
                         <Table.Td>
                           <ModalButton onClick={() => toggleModal(role.name + role.departament)}>
-                            <BsThreeDotsVertical size={16} />
+                            <DotsIcon>
+                              <BsThreeDotsVertical size={16} />
+                            </DotsIcon>
+                            <ActionsContainer>
+                              <AiOutlineFileAdd size={24} color='#1DD195' />
+                              <DropdownActionLabel>Ações</DropdownActionLabel>
+                            </ActionsContainer>
                           </ModalButton>
-
-                          {modalIsOpenList[role.name + role.departament] && (
-                            <ModalMenu>
-                              <Link href={`/cargo/1`}>
+                          <>
+                            <ModalBackground
+                              isOpen={modalIsOpenList[role.name + role.departament]}
+                            />
+                            <ModalMenu isOpen={modalIsOpenList[role.name + role.departament]}>
+                              <Link href={`/cargo/create`}>
                                 <ModalOption>
                                   <ModalOptionIcon>
                                     <AiOutlineEye size={22} />
@@ -153,7 +207,7 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                                 </ModalOption>
                               </Link>
                             </ModalMenu>
-                          )}
+                          </>
                         </Table.Td>
                       </Table.Row>
                     ))}

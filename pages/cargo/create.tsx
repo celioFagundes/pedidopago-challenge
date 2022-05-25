@@ -29,7 +29,7 @@ import {
   UserData,
   Username,
   Wrapper,
-} from '../home'
+} from '../../styles/home'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineArrowLeft, AiOutlineCheck } from 'react-icons/ai'
@@ -50,7 +50,7 @@ interface Role {
 interface MainProps {
   data: Role
 }
-const Cargo: React.FC<MainProps> = ({ data }) => {
+const CreateCargo: React.FC<MainProps> = ({ data }) => {
   return (
     <div>
       <Head>
@@ -137,4 +137,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-export default Cargo
+export default CreateCargo
