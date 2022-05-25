@@ -7,11 +7,12 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   z-index: -1;
+  max-width: 980px;
+  margin: 0 auto;
 `
 
 export const Container = styled.div`
-  margin: 0px 100px;
-  width: 80%;
+  width: 100%;
 `
 export const PageTitle = styled.h1`
   font-style: normal;
@@ -112,6 +113,7 @@ export const ModalOption = styled.div`
   }
 `
 export const ModalOptionIcon = styled.div`
+  color: #cad6d1;
   margin-right: 16px;
 `
 export const ModalOptionLink = styled.a<IsActive>`
@@ -175,7 +177,8 @@ export const CardsWrapper = styled.section`
 `
 export const Card = styled.div`
   display: flex;
-  width:100%;
+  position: relative;
+  width: 100%;
   justify-content: flex-start;
   align-items: center;
   padding: 16px;
@@ -193,6 +196,7 @@ export const CardIcon = styled.div`
   background: #cad6d1;
   border-radius: 50%;
   margin-right: 8px;
+  color: #465953;
 `
 export const CardDataWrapper = styled.div``
 export const DataTitle = styled.p`
@@ -201,7 +205,6 @@ export const DataTitle = styled.p`
   font-weight: 400;
   font-size: 12px;
   color: #587169;
-  
 `
 export const Data = styled.p`
   font-family: 'Poppins';
@@ -209,8 +212,7 @@ export const Data = styled.p`
   font-weight: 600;
   font-size: 14px;
   color: #587169;
-  width:max-content;
-  
+  width: max-content;
 `
 export const SectionOrganizationalData = styled.section`
   padding: 24px;
@@ -249,7 +251,7 @@ export const Label = styled.label`
     display: block;
     position: absolute;
     z-index: -1;
-    top: 5px;
+    top: 2px;
     left: 0px;
     content: ' ';
     background-color: #fff;
@@ -278,3 +280,15 @@ export const Select = styled.select`
   cursor: pointer;
 `
 export const Option = styled.option``
+
+export const Checkbox = styled.div<IsActive>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  background: ${props => (props.isActive ? '#1DD195' : '#fff')};
+  border: ${props => (props.isActive ? '0' : '2px solid #CAD6D1')};
+  border-radius: 6px;
+  color: #fff;
+`

@@ -33,6 +33,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import Image from 'next/image'
+import { BiPhoneCall } from 'react-icons/bi'
+import { FiCalendar } from 'react-icons/fi'
 
 interface Phone {
   ddd: number
@@ -106,7 +108,7 @@ const Colaborador: React.FC<MainProps> = ({ data }) => {
               <CardsWrapper>
                 <Card>
                   <CardIcon>
-                    <HiOutlineIdentification size={24} />
+                    <HiOutlineIdentification size={20} />
                   </CardIcon>
                   <CardDataWrapper>
                     <DataTitle>{data.document.type}</DataTitle>
@@ -115,7 +117,7 @@ const Colaborador: React.FC<MainProps> = ({ data }) => {
                 </Card>
                 <Card>
                   <CardIcon>
-                    <HiOutlineIdentification size={24} />
+                    <BiPhoneCall size={20} />
                   </CardIcon>
                   <CardDataWrapper>
                     <DataTitle>Telefone</DataTitle>
@@ -124,7 +126,7 @@ const Colaborador: React.FC<MainProps> = ({ data }) => {
                 </Card>
                 <Card>
                   <CardIcon>
-                    <HiOutlineIdentification size={24} />
+                    <FiCalendar size={20} />
                   </CardIcon>
                   <CardDataWrapper>
                     <DataTitle>Nascimento</DataTitle>

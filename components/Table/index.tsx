@@ -52,7 +52,7 @@ const TableAvatarAndName = (props: AvatarProps) => {
         layout='fixed'
         height={32}
         width={32}
-        objectFit='cover'
+        objectFit='contain'
         alt='avatar'
         style={{ borderRadius: '50%' }}
       />

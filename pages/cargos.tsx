@@ -1,12 +1,11 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useEffect,  useState } from 'react'
+import { useEffect, useState } from 'react'
 import Table from '../components/Table/index'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Layout from '../components/Layout'
 import {
-  BottomContainer,
   BottomContainerSingle,
   Container,
   Content,
@@ -27,6 +26,8 @@ import SearchInput from '../components/SearchInput'
 import Pagination from '../components/Pagination'
 import { AiOutlineEye } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import { FiEdit } from 'react-icons/fi'
+import {ImStack} from 'react-icons/im'
 interface Roles {
   name: string
   departament: string
@@ -46,7 +47,7 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
 
   useEffect(() => {
     const modalList = displayData.reduce((prev, curr) => {
-      return { ...prev, [curr.name+curr.departament]: false }
+      return { ...prev, [curr.name + curr.departament]: false }
     }, {})
     setModalIsOpenList(modalList)
   }, [displayData])
@@ -113,19 +114,34 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                         <Table.Td>{role.departament}</Table.Td>
                         <Table.Td>{role.agents_quantity}</Table.Td>
                         <Table.Td>
-                          <ModalButton onClick={() => toggleModal(role.name+role.departament)}>
+                          <ModalButton onClick={() => toggleModal(role.name + role.departament)}>
                             <BsThreeDotsVertical size={16} />
                           </ModalButton>
 
-                          {modalIsOpenList[role.name+role.departament] && (
+                          {modalIsOpenList[role.name + role.departament] && (
                             <ModalMenu>
-                              <Link href={`/role/1`}>
+                              <Link href={`/cargo/1`}>
                                 <ModalOption>
                                   <ModalOptionIcon>
                                     <AiOutlineEye size={22} />
                                   </ModalOptionIcon>
-
                                   <ModalOptionLink isActive={true}>Ver cargo</ModalOptionLink>
+                                </ModalOption>
+                              </Link>
+                              <Link href='#'>
+                                <ModalOption>
+                                  <ModalOptionIcon>
+                                    <FiEdit size={22} />
+                                  </ModalOptionIcon>
+                                  <ModalOptionLink isActive={false}>Editar</ModalOptionLink>
+                                </ModalOption>
+                              </Link>
+                              <Link href='#'>
+                                <ModalOption>
+                                  <ModalOptionIcon>
+                                    <ImStack size={22} />
+                                  </ModalOptionIcon>
+                                  <ModalOptionLink isActive={false}>Duplicar</ModalOptionLink>
                                 </ModalOption>
                               </Link>
                               <Link href='#'>
@@ -133,7 +149,6 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                                   <ModalOptionIcon>
                                     <RiDeleteBinLine size={22} />
                                   </ModalOptionIcon>
-
                                   <ModalOptionLink isActive={false}>Excluir</ModalOptionLink>
                                 </ModalOption>
                               </Link>

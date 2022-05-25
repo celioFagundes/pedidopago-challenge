@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
 export const Wrapper = styled.div`
+  height: 100%;
   width: 100%;
 `
 export const Header = styled.header`
@@ -45,7 +46,7 @@ export const UserData = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-end;
   margin-left: 10px;
 `
 export const Username = styled.p`
@@ -57,24 +58,27 @@ export const Data = styled.p`
   font-size: 12px;
   font-weight: 400;
   font-family: 'Poppins';
+  width:100%;
 `
 export const Container = styled.section`
   display: grid;
-  grid-template-columns: 18% 1fr;
+  grid-template-columns: 15% 1fr;
   justify-content: flex-start;
-  min-height: 100%;
-  background-color: #f8faf9;
-`
-export const Sidebar = styled.aside`
-  display: inline-block;
+  align-items: flex-start;
+  background-color: #fff;
   height: 100%;
   width: 100%;
-  background-color: #fff;
-  border-right: 1px solid #eaefed;
+`
+export const Sidebar = styled.aside`
+  display: block;
+  height: 100%;
+  width: 100%;
+  max-width: 300px;
+  border-right: 1px solid #fff;
   box-shadow: 0px 4px 8px rgba(165, 171, 179, 0.16);
 `
 export const Main = styled.section`
-  padding: 50px 0px;
+  padding: 50px;
   width: 100%;
   background-color: #f8faf9;
 `

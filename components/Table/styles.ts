@@ -48,7 +48,6 @@ export const Td = styled.td<StatusProps>`
   padding: 18px 16px;
   width:100%;
   position: relative;
-  white-space: nowrap;
 `
 
 export const Status = styled.div<StatusProps>`
