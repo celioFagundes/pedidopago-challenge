@@ -29,7 +29,6 @@ const SelectModal = (props: Props) => {
           <BsThreeDotsVertical />
         </Icon>
       </Container>
-
       <>
         <ModalBackground isOpen={props.isOpen} />
         <Modal isOpen={props.isOpen}>

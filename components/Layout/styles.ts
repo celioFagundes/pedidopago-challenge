@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
+import { BoldText, LightText } from '../../styles/texts'
 
 export const Wrapper = styled.div`
   height: 100%;
   width: 100%;
 `
 export const Header = styled.header`
-position:relative;
+  position: relative;
   display: flex;
   background-color: #fff;
   justify-content: space-between;
@@ -28,10 +29,9 @@ export const LogoContainer = styled.div`
   padding-right: 32px;
   border-right: 1px solid #eaefed;
   @media (max-width: 768px) {
-    
     padding-right: 0px;
     border: 0;
-    margin:0 auto;
+    margin: 0 auto;
   }
 `
 export const UserContainer = styled.div`
@@ -44,9 +44,9 @@ export const UserContainer = styled.div`
     padding-right: 0px;
     padding-left: 16px;
     border: 0;
-    position:absolute;
-    left:0px;
-    top:16px;
+    position: absolute;
+    left: 0px;
+    top: 16px;
   }
 `
 export const UserAvatar = styled.div`
@@ -72,15 +72,11 @@ export const UserData = styled.div`
     display: none;
   }
 `
-export const Username = styled.p`
+export const Username = styled(BoldText)`
   font-size: 14px;
-  font-weight: 600;
-  font-family: 'Poppins';
 `
-export const Data = styled.p`
+export const Data = styled(LightText)`
   font-size: 12px;
-  font-weight: 400;
-  font-family: 'Poppins';
   width: 100%;
 `
 export const Container = styled.section`

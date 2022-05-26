@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { BoldText, NormalText } from '../../styles/texts'
 
 type IsOpen = {
   isOpen: boolean
@@ -18,22 +19,14 @@ export const Container = styled.div`
   border: 2px solid #cad6d1;
   border-radius: 8px;
   margin: 40px 0;
-  
+  &:hover {
+    cursor: pointer;
+  }
 `
-export const Label = styled.label`
-  font-style: normal;
-  font-weight: 500;
+export const Label = styled(NormalText)`
   font-size: 14px;
-  color: #587169;
-  &:hover {
-    cursor: pointer;
-  }
 `
-export const Icon = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
-`
+export const Icon = styled.div``
 export const Modal = styled.div<IsOpen>`
   position: fixed;
   left: 4%;
@@ -63,10 +56,7 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `
-export const ModalLabel = styled.p`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
+export const ModalLabel = styled(BoldText)`
   font-size: 18px;
   color: #34423d;
   margin-bottom: 35px;
@@ -80,7 +70,6 @@ export const ModalOption = styled.div`
   }
 `
 export const ModalOptionLink = styled.a`
-  font-family: 'Poppins';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

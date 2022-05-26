@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { LightText } from '../../styles/texts'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,13 +9,7 @@ export const Wrapper = styled.div`
     display:none;
   }
 `
-export const Message = styled.p`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  color: #587169;
-  font-family: 'Poppins';
-
+export const Message = styled(LightText)`
   margin-right: 24px;
 `
 

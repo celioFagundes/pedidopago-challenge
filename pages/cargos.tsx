@@ -2,29 +2,17 @@ import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Table from '../components/TestTable'
+import TableDrop from '../components/TableToDropdown'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Layout from '../components/Layout'
 import {
   BottomContainerSingle,
   Container,
   Content,
-  DropdownActionLabel,
-  DropdownIcon,
-  DropdownItemData,
-  DropdownLabel,
   ListTitle,
-  ModalBackground,
-  ModalButton,
-  ModalMenu,
-  ModalOption,
-  ModalOptionIcon,
-  ModalOptionLink,
   PageTitle,
-  Tab,
-  Tabs,
   Wrapper,
-} from '../styles/styles-test'
+} from '../styles/cargos'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import SearchInput from '../components/SearchInput'
@@ -35,7 +23,16 @@ import { FiEdit } from 'react-icons/fi'
 import { ImStack } from 'react-icons/im'
 import SelectModal from '../components/SelectModal'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { ActionsContainer, DotsIcon } from '../styles/styles-test'
+import Tabs from '../components/Tabs'
+import {
+  ActionLabel,
+  DropdownIcon,
+  Value,
+  Label,
+  ActionsContainer,
+  DotsIcon,
+} from '../components/TableToDropdown/styles'
+import ModalOptions from '../components/ModalOptions'
 interface Roles {
   name: string
   departament: string
@@ -108,12 +105,12 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
             <PageTitle>Organização</PageTitle>
             <Content>
               <Tabs>
-                <Link href='/'>
-                  <Tab isActive={router.pathname === '/'}>Colaboradores</Tab>
-                </Link>
-                <Link href='/cargos'>
-                  <Tab isActive={router.pathname !== '/'}>Cargos</Tab>
-                </Link>
+                <Tabs.Tab url='/' isActive={router.pathname === '/'}>
+                  Colaboradores
+                </Tabs.Tab>
+                <Tabs.Tab url='/cargos' isActive={router.pathname !== '/'}>
+                  Cargos
+                </Tabs.Tab>
               </Tabs>
               <SelectModal
                 isOpen={modalCategoriesIsOpen}
@@ -124,25 +121,25 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
               <SearchInput />
               <ListTitle>Listagem de cargos</ListTitle>
               {data && (
-                <Table>
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.Th>Cargo</Table.Th>
-                      <Table.Th>Departamento</Table.Th>
-                      <Table.Th>Colaboradores</Table.Th>
-                      <Table.Th></Table.Th>
-                    </Table.Row>
-                  </Table.Header>
-                  <Table.Body>
+                <TableDrop>
+                  <TableDrop.Header>
+                    <TableDrop.Row>
+                      <TableDrop.Th>Cargo</TableDrop.Th>
+                      <TableDrop.Th>Departamento</TableDrop.Th>
+                      <TableDrop.Th>Colaboradores</TableDrop.Th>
+                      <TableDrop.Th></TableDrop.Th>
+                    </TableDrop.Row>
+                  </TableDrop.Header>
+                  <TableDrop.Body>
                     {data.map(role => (
-                      <Table.Row
+                      <TableDrop.Row
                         key={role.name + role.departament}
                         isActive={dropdownIsOpenList[role.name + role.departament]}
                         maxHeight={'70px'}
                       >
-                        <Table.Td onClick={() => toggleDropdown(role.name + role.departament)}>
-                          <DropdownLabel>Cargo</DropdownLabel>
-                          <DropdownItemData>{role.name}</DropdownItemData>
+                        <TableDrop.Td onClick={() => toggleDropdown(role.name + role.departament)}>
+                          <Label>Cargo</Label>
+                          <Value>{role.name}</Value>
                           <DropdownIcon>
                             {!dropdownIsOpenList[role.name + role.departament] ? (
                               <MdOutlineKeyboardArrowDown />
@@ -150,69 +147,60 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                               <MdOutlineKeyboardArrowUp />
                             )}
                           </DropdownIcon>
-                        </Table.Td>
-                        <Table.Td>
-                          <DropdownLabel>Departamento</DropdownLabel>
-                          <DropdownItemData>{role.departament}</DropdownItemData>
-                        </Table.Td>
-                        <Table.Td>
-                          <DropdownLabel>Colaboradores</DropdownLabel>
-                          <DropdownItemData>{role.agents_quantity}</DropdownItemData>
-                        </Table.Td>
-                        <Table.Td>
-                          <ModalButton onClick={() => toggleModal(role.name + role.departament)}>
-                            <DotsIcon>
-                              <BsThreeDotsVertical size={16} />
-                            </DotsIcon>
-                            <ActionsContainer>
-                              <AiOutlineFileAdd size={24} color='#1DD195' />
-                              <DropdownActionLabel>Ações</DropdownActionLabel>
-                            </ActionsContainer>
-                          </ModalButton>
-                          <>
-                            <ModalBackground
-                              isOpen={modalIsOpenList[role.name + role.departament]}
-                            />
-                            <ModalMenu isOpen={modalIsOpenList[role.name + role.departament]}>
-                              <Link href={`/cargo/create`}>
-                                <ModalOption>
-                                  <ModalOptionIcon>
-                                    <AiOutlineEye size={22} />
-                                  </ModalOptionIcon>
-                                  <ModalOptionLink isActive={true}>Ver cargo</ModalOptionLink>
-                                </ModalOption>
-                              </Link>
-                              <Link href='#'>
-                                <ModalOption>
-                                  <ModalOptionIcon>
-                                    <FiEdit size={22} />
-                                  </ModalOptionIcon>
-                                  <ModalOptionLink isActive={false}>Editar</ModalOptionLink>
-                                </ModalOption>
-                              </Link>
-                              <Link href='#'>
-                                <ModalOption>
-                                  <ModalOptionIcon>
-                                    <ImStack size={22} />
-                                  </ModalOptionIcon>
-                                  <ModalOptionLink isActive={false}>Duplicar</ModalOptionLink>
-                                </ModalOption>
-                              </Link>
-                              <Link href='#'>
-                                <ModalOption>
-                                  <ModalOptionIcon>
-                                    <RiDeleteBinLine size={22} />
-                                  </ModalOptionIcon>
-                                  <ModalOptionLink isActive={false}>Excluir</ModalOptionLink>
-                                </ModalOption>
-                              </Link>
-                            </ModalMenu>
-                          </>
-                        </Table.Td>
-                      </Table.Row>
+                        </TableDrop.Td>
+                        <TableDrop.Td>
+                          <Label>Departamento</Label>
+                          <Value>{role.departament}</Value>
+                        </TableDrop.Td>
+                        <TableDrop.Td>
+                          <Label>Colaboradores</Label>
+                          <Value>{role.agents_quantity}</Value>
+                        </TableDrop.Td>
+                        <TableDrop.Td>
+                          <DotsIcon onClick={() => toggleModal(role.name + role.departament)}>
+                            <BsThreeDotsVertical size={16} />
+                          </DotsIcon>
+                          <ActionsContainer
+                            onClick={() => toggleModal(role.name + role.departament)}
+                          >
+                            <AiOutlineFileAdd size={24} color='#1DD195' />
+                            <ActionLabel>Ações</ActionLabel>
+                          </ActionsContainer>
+                          <ModalOptions isOpen={modalIsOpenList[role.name + role.departament]}>
+                            <ModalOptions.Option
+                              Icon={AiOutlineEye}
+                              url={'/cargo/create'}
+                              isActive={true}
+                            >
+                              Ver cargo
+                            </ModalOptions.Option>
+                            <ModalOptions.Option
+                              Icon={FiEdit}
+                              url={'/cargo/create'}
+                              isActive={false}
+                            >
+                              Editar
+                            </ModalOptions.Option>
+                            <ModalOptions.Option
+                              Icon={ImStack}
+                              url={'/cargo/create'}
+                              isActive={false}
+                            >
+                              Duplicar
+                            </ModalOptions.Option>
+                            <ModalOptions.Option
+                              Icon={RiDeleteBinLine}
+                              url={'/cargo/create'}
+                              isActive={false}
+                            >
+                              Excluir
+                            </ModalOptions.Option>
+                          </ModalOptions>
+                        </TableDrop.Td>
+                      </TableDrop.Row>
                     ))}
-                  </Table.Body>
-                </Table>
+                  </TableDrop.Body>
+                </TableDrop>
               )}
               <BottomContainerSingle>
                 <Pagination />

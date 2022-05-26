@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { BoldText, LightText } from '../../styles/texts'
 
 type StatusProps = {
   status?: string
@@ -6,6 +7,7 @@ type StatusProps = {
 type IsActive = {
   isActive?: boolean
   maxHeight?: string
+  status?: string
 }
 export const TableContainer = styled.div`
   width: 100%;
@@ -15,7 +17,7 @@ export const TableHeaderContainer = styled.div`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   width: 100%;
-  padding: 16px 0 ;
+  padding: 16px 0;
   @media (max-width: 768px) {
     display: none;
   }
@@ -29,13 +31,15 @@ export const Tr = styled.div<IsActive>`
   align-items: center;
   width: 100%;
   padding: 0 16px;
+  color: '#587169';
+  color: ${props => props.status === 'inactive' && '#A3B8B0'};
   @media (max-width: 768px) {
     max-height: ${props => (props.isActive ? '1000px' : props.maxHeight)};
     overflow-y: hidden;
     border-color: ${props => props.isActive && '#B5F1DD'};
     transition: max-height 0.4s ease-in-out;
     cursor: pointer;
-    
+
     background: #ffffff;
     border: 2px solid #eaefed;
     border-color: ${props => props.isActive && '#B5F1DD'};
@@ -49,7 +53,7 @@ export const Tr = styled.div<IsActive>`
 `
 export const Th = styled.div`
   width: 100%;
-  margin-right:10px;
+  margin-right: 10px;
   text-align: left;
   color: #587169;
   font-family: 'Poppins';
@@ -60,14 +64,11 @@ export const Th = styled.div`
     width: 5%;
     padding-right: 10px;
   }
-  
 `
-export const Td = styled.div<StatusProps>`
+export const Td = styled.div`
   display: flex;
-  justify-content:flex-start;
-  color: '#587169';
+  justify-content: flex-start;
   text-align: left;
-  color: ${props => props.status === 'inactive' && '#A3B8B0'};
   border-bottom: 1px solid #eaefed;
   font-family: 'Poppins';
   font-style: normal;
@@ -97,34 +98,43 @@ export const Td = styled.div<StatusProps>`
     }
   }
 `
-
-export const Status = styled.div<StatusProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 116%;
-  padding: 4px 8px;
-  border-radius: 80px;
-  text-transform: capitalize;
-  background-color: ${props => (props.status === 'inactive' ? '#EAEFED' : '#B5F1DD')};
-  color: ${props => (props.status === 'inactive' ? '#A3B8B0' : '#34423D')};
-`
-export const AvatarNameContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-`
-export const Name = styled.p`
-  margin-left: 8px;
-  font-weight: 500;
-  @media (max-width: 768px) {
-    font-weight: 600;
+export const DropdownIcon = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  @media (min-width: 768px) {
+    display: none;
   }
 `
+export const Label = styled(BoldText)`
+  font-size: 12px;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`
+export const Value = styled.p`
+  font-size: 12px;
+`
+export const DotsIcon = styled.div`
+cursor:pointer;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+export const ActionsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 14px 24px;
+  border: 2px solid #b5f1dd;
+  border-radius: 8px;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`
+export const ActionLabel = styled(BoldText)`
+  color: #34423d;
+  margin-left: 8px;
+`
+

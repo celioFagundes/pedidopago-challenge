@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { BoldText } from '../../styles/texts'
 
 type buttonProps = {
   isDisabled: boolean
@@ -36,24 +37,17 @@ export const PaginationButton = styled.button<buttonProps>`
     display: none;
   }
 `
-export const PaginationLabel = styled.p`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  color: #587169;
+
+export const PaginationLabel = styled(BoldText)`
   margin: 0 12px;
+  color : #A3B8B0;
   @media (max-width: 768px) {
     display: none;
   }
 `
-export const MobilePaginationLabel = styled.p`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  color: #587169;
+export const MobilePaginationLabel = styled(BoldText)`
   margin: 0 12px;
+  
 `
 export const MobilePagination = styled.div`
   display: flex;
