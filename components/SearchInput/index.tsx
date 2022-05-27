@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { Input, Label, Wrapper, Icon } from './styles'
 type Props = {}

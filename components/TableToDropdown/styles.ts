@@ -1,23 +1,24 @@
 import styled from '@emotion/styled'
-import { BoldText, LightText } from '../../styles/texts'
+import { BoldText } from '../../styles/texts'
 
-type StatusProps = {
-  status?: string
-}
-type IsActive = {
+type TableRowType = {
   isActive?: boolean
   maxHeight?: string
   status?: string
+  numberOfColumns: number
+}
+type GridSpan = {
+  gridSpan?: boolean
 }
 export const TableContainer = styled.div`
   width: 100%;
 `
 export const TableHeaderContainer = styled.div`
+  width: 100%;
+  padding: 16px 0;
   border: 1px solid #cad6d1;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  width: 100%;
-  padding: 16px 0;
   @media (max-width: 768px) {
     display: none;
   }
@@ -25,8 +26,9 @@ export const TableHeaderContainer = styled.div`
 export const TableBodyContainer = styled.div`
   width: 100%;
 `
-export const Tr = styled.div<IsActive>`
-  display: flex;
+export const Tr = styled.div<TableRowType>`
+  display: grid;
+  grid-template-columns: ${props => `repeat(${props.numberOfColumns}, 1fr)`};
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -34,12 +36,13 @@ export const Tr = styled.div<IsActive>`
   color: '#587169';
   color: ${props => props.status === 'inactive' && '#A3B8B0'};
   @media (max-width: 768px) {
+    display: grid;
+    grid-auto-flow: initial;
+    grid-template-columns: 1fr 1fr;
     max-height: ${props => (props.isActive ? '1000px' : props.maxHeight)};
     overflow-y: hidden;
     border-color: ${props => props.isActive && '#B5F1DD'};
     transition: max-height 0.4s ease-in-out;
-    cursor: pointer;
-
     background: #ffffff;
     border: 2px solid #eaefed;
     border-color: ${props => props.isActive && '#B5F1DD'};
@@ -47,11 +50,9 @@ export const Tr = styled.div<IsActive>`
     margin: 8px 0;
     transition: max-height 0.4s ease-in-out;
     cursor: pointer;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
   }
 `
-export const Th = styled.div`
+export const Th = styled.div<GridSpan>`
   width: 100%;
   margin-right: 10px;
   text-align: left;
@@ -60,44 +61,43 @@ export const Th = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  &:last-of-type {
-    width: 5%;
-    padding-right: 10px;
+  &:first-of-type {
+    grid-column: ${props => props.gridSpan && 'span 2'};
   }
 `
-export const Td = styled.div`
+export const Td = styled.div<GridSpan>`
+  position: relative;
   display: flex;
   justify-content: flex-start;
+  width: 100%;
+  padding: 18px 0;
   text-align: left;
   border-bottom: 1px solid #eaefed;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  padding: 18px 0;
-  width: 100%;
-  position: relative;
-
+  &:first-of-type {
+    grid-column: ${props => props.gridSpan && 'span 2'};
+  }
   &:last-of-type {
-    width: 5%;
-    padding-right: 10px;
+    justify-content: flex-end;
   }
   @media (max-width: 768px) {
+    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    flex-direction: column;
     border: 0;
     &:first-of-type {
       grid-column: span 2;
     }
     &:last-of-type {
-      width: 100%;
       grid-column: span 2;
-      justify-content: flex-end;
       padding-right: 15px;
     }
   }
 `
+
 export const DropdownIcon = styled.div`
   position: absolute;
   right: 10px;
@@ -107,6 +107,7 @@ export const DropdownIcon = styled.div`
   }
 `
 export const Label = styled(BoldText)`
+  margin-bottom: 6px;
   font-size: 12px;
   @media (min-width: 768px) {
     display: none;
@@ -116,7 +117,7 @@ export const Value = styled.p`
   font-size: 12px;
 `
 export const DotsIcon = styled.div`
-cursor:pointer;
+  cursor: pointer;
   @media (max-width: 768px) {
     display: none;
   }
@@ -137,4 +138,3 @@ export const ActionLabel = styled(BoldText)`
   color: #34423d;
   margin-left: 8px;
 `
-

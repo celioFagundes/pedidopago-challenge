@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
 import {
-    Container,
+  Container,
   Data,
   Header,
   LogoContainer,
   Main,
+  MainContainer,
+  MainWrapper,
   Sidebar,
   UserAvatar,
   UserContainer,
@@ -32,10 +34,14 @@ const Layout = (props: MainProps) => {
           </UserData>
         </UserContainer>
       </Header>
-      <Container>
-        <Sidebar/>
-        <Main>{props.children}</Main>
-      </Container>
+      <Main>
+        <Sidebar />
+        <Container>
+          <MainWrapper>
+            <MainContainer>{props.children}</MainContainer>
+          </MainWrapper>
+        </Container>
+      </Main>
     </Wrapper>
   )
 }

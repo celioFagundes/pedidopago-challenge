@@ -15,18 +15,17 @@ export const Container = styled.div`
 `
 export const TabLink = styled.a<IsActive>`
   width: 200px;
+  padding-bottom: 16px;
   text-align: center;
+  color: ${props => (props.isActive ? '#34423D' : '#A3B8B0')};
+  border-bottom: 2px solid;
+  border-color: ${props => (props.isActive ? '#22e0a1' : 'transparent')};
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  line-height: 110%;
-  padding-bottom: 16px;
-  border-bottom: 2px solid;
   cursor: pointer;
   transition: all 200ms ease-in-out;
-  color: ${props => (props.isActive ? '#587169' : '#A3B8B0')};
-  border-color: ${props => (props.isActive ? '#22e0a1' : 'transparent')};
   &:hover {
     color: ${props => !props.isActive && '#587169'};
     border-color: ${props => !props.isActive && '#ABE0CE'};

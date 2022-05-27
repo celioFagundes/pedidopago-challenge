@@ -26,7 +26,8 @@ export const Container = styled.div`
 export const Label = styled(NormalText)`
   font-size: 14px;
 `
-export const Icon = styled.div``
+export const Icon = styled.div`
+cursor:pointer;`
 export const Modal = styled.div<IsOpen>`
   position: fixed;
   left: 4%;

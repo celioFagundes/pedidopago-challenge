@@ -1,47 +1,54 @@
-import styled from '@emotion/styled'
-import { LightText } from '../../styles/texts'
+import styled from "@emotion/styled"
 
+type SelectProps = {
+  bgColor?: string
+}
 export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media(max-width:768px){
-    display:none;
+  position: relative;
+  width:100%;
+`
+export const Label = styled.label`
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  padding: 0 5px;
+  color: #a3b8b0;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  z-index: 4000;
+  ::before {
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    display: block; 
+    height: 1px;
+    width: 100%;
+    padding: 5px 0px;
+    background-color: #fff;
+    z-index: -1;
   }
 `
-export const Message = styled(LightText)`
-  margin-right: 24px;
-`
-
-export const Container = styled.label`
-  position: relative;
-`
-export const Select = styled.select`
-  -webkit-appearance: none;
-  -moz-appearance: none;
+export const Selection = styled.select<SelectProps>`
+  width: 100%;
+  padding: 20px;
   background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
-    no-repeat right;
+  no-repeat right;
+  background-color: ${props => props.bgColor ? props.bgColor : '#fff'};
   background-position-x: 90%;
-  background-position-y: 10px;
+  background-position-y: 25px;
+  color: #587169;
   border: 2px solid #cad6d1;
   border-radius: 8px;
-  padding: 6px 40px 6px 15px;
-  outline: none;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  color: #587169;
-  &:hover {
-    cursor: pointer;
-    border-color: #000;
-  }
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+  cursor: pointer;
 `
-export const Icon = styled.div`
-  position: absolute;
-  right: 2px;
-  top: 5px;
-  z-index: 100;
-  background-color: #0f0;
-`
-export const Option = styled.option``
+export const OptionLabel = styled.option``

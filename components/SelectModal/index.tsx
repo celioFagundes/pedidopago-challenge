@@ -30,7 +30,7 @@ const SelectModal = (props: Props) => {
         </Icon>
       </Container>
       <>
-        <ModalBackground isOpen={props.isOpen} />
+        <ModalBackground isOpen={props.isOpen} onClick={props.closeFn}/>
         <Modal isOpen={props.isOpen}>
           <ModalHeader>
             <ModalLabel>Categorias</ModalLabel>

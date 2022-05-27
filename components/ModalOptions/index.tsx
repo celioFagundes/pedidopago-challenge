@@ -6,6 +6,7 @@ import { ModalBackground, ModalMenu, ModalOption, ModalOptionIcon, ModalOptionLi
 type Props = {
   children: React.ReactNode
   isOpen: boolean
+  closeFn?: () => void
 }
 
 interface Options {
@@ -13,11 +14,12 @@ interface Options {
   url: string
   Icon: IconType
   isActive: boolean
+  
 }
 const ModalOptions = (props: Props) => {
   return (
     <>
-      <ModalBackground isOpen={props.isOpen} />
+      <ModalBackground isOpen={props.isOpen} onClick = {props.closeFn}/>
       <ModalMenu isOpen={props.isOpen}>{props.children}</ModalMenu>
     </>
   )

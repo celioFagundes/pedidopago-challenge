@@ -13,20 +13,26 @@ interface MainProps {
 }
 interface TableRowType  {
   children?: React.ReactNode
+  numberOfColumns: number
   isActive?: boolean
   maxHeight?: string
   status?: string
 }
 interface TableTDType{
   children?: React.ReactNode
+  gridSpan?: boolean
   onClick?: () => void
+}
+interface TableTHType{
+  children?: React.ReactNode
+  gridSpan?: boolean
 }
 
 const TableDrop = (props: MainProps) => {
   return <TableContainer>{props.children}</TableContainer>
 }
-const TableHeader = (props: MainProps) => {
-  return <TableHeaderContainer>{props.children}</TableHeaderContainer>
+const TableHeader = (props:  MainProps) => {
+  return <TableHeaderContainer {...props}>{props.children}</TableHeaderContainer>
 }
 const TableBody = (props: MainProps) => {
   return <TableBodyContainer>{props.children}</TableBodyContainer>
@@ -34,8 +40,8 @@ const TableBody = (props: MainProps) => {
 const TableRow = (props: TableRowType) => {
   return <Tr {...props}>{props.children}</Tr>
 }
-const TableTh = (props: MainProps) => {
-  return <Th>{props.children}</Th>
+const TableTh = (props: TableTHType) => {
+  return <Th  {...props}>{props.children}</Th>
 }
 const TableTd = (props: TableTDType) => {
   return <Td {...props}>{props.children}</Td>

@@ -1,24 +1,26 @@
-import { MdKeyboardArrowDown } from "react-icons/md"
-import { Container, Icon,  Message, Option, Select, Wrapper } from "./styles"
+import React from 'react'
+import { Label, OptionLabel, Selection, Wrapper } from './styles'
 
-type Props = {}
+type Props = {
+  label: string
+  children: React.ReactNode
+  bgColor?: string
+}
 
-const SelectQuantity = (props: Props) => {
+type OptionProps = {
+  children: React.ReactNode
+  value?: string
+}
+const Select = (props: Props) => {
   return (
     <Wrapper>
-      <Message>Mostrando 10 de 50 registros</Message>
-      <Container htmlFor='select'>
-        <Select id='select'>
-          <Option>5</Option>
-          <Option>10</Option>
-          <Option>20</Option>
-          <Option>40</Option>
-          <Option>50</Option>
-        </Select>
-        
-      </Container>
+      <Label>{props.label}</Label>
+      <Selection bgColor = {props.bgColor}>{props.children}</Selection>
     </Wrapper>
   )
 }
-
-export default SelectQuantity
+const Option = (props: OptionProps) => {
+  return <OptionLabel value={props.value}>{props.children}</OptionLabel>
+}
+Select.Option = Option
+export default Select

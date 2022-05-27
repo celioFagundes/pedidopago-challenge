@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 
 export const TableContainer = styled.table`
   width: 100%;
-  border-spacing:0;
+  border-spacing: 0;
 `
 export const TableHeaderContainer = styled.thead`
   width: 100%;
@@ -33,13 +33,13 @@ export const Th = styled.th`
   padding: 16px;
 `
 export const Td = styled.td`
-  color: '#587169';
+  position: relative;
+  width: 100%;
+  padding: 18px 16px;
   text-align: left;
+  color: '#587169';
   border-bottom: 1px solid #eaefed;
   font-weight: 400;
   font-size: 12px;
-  padding: 18px 16px;
-  width: 100%;
-  position: relative;
+  
 `
-
