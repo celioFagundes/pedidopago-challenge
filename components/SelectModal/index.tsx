@@ -39,10 +39,10 @@ const SelectModal = (props: Props) => {
               <CloseX />
             </Icon>
           </ModalHeader>
-          <Link href='/'>
+          <Link href='/agents'>
             <ModalOption onClick={props.closeFn}>Colaboradores</ModalOption>
           </Link>
-          <Link href='/cargos'>
+          <Link href='/roles'>
             <ModalOption onClick={props.closeFn}>Cargos</ModalOption>
           </Link>
         </Modal>

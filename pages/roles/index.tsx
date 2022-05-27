@@ -1,16 +1,13 @@
-import type { GetServerSideProps } from 'next'
-import axios from 'axios'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Seo from '../components/Seo'
+import Seo from '../../components/Seo'
 
-import TableDrop from '../components/TableToDropdown'
-import Layout from '../components/Layout'
-import ModalOptions from '../components/ModalOptions'
-import SearchInput from '../components/SearchInput'
-import Pagination from '../components/Pagination'
-import SelectModal from '../components/SelectModal'
-import Tabs from '../components/Tabs'
+import TableDrop from '../../components/TableToDropdown'
+import Layout from '../../components/Layout'
+import ModalOptions from '../../components/ModalOptions'
+import SearchInput from '../../components/SearchInput'
+import Pagination from '../../components/Pagination'
+import SelectModal from '../../components/SelectModal'
+import Tabs from '../../components/Tabs'
 import {
   ActionLabel,
   DropdownIcon,
@@ -18,45 +15,49 @@ import {
   Label,
   ActionsContainer,
   DotsIcon,
-} from '../components/TableToDropdown/styles'
-import { BottomContainerSingle, Content } from '../styles/cargos'
-import { PageTitle, SectionTitle } from '../styles/texts'
-import Eye from '../components/Icons/Eye'
-import Down from '../components/Icons/Down'
-import Up from '../components/Icons/Up'
-import Edit from '../components/Icons/Edit'
-import Duplicate from '../components/Icons/Duplicate'
-import Repeat from '../components/Icons/Repeat'
-import FilePlus from '../components/Icons/FilePlus'
-import MoreVertical from '../components/Icons/MoreVertical'
+} from '../../components/TableToDropdown/styles'
+import { BottomContainerSingle, Content } from '../../styles/cargos'
+import { PageTitle, SectionTitle } from '../../styles/texts'
+import Eye from '../../components/Icons/Eye'
+import Down from '../../components/Icons/Down'
+import Up from '../../components/Icons/Up'
+import Edit from '../../components/Icons/Edit'
+import Duplicate from '../../components/Icons/Duplicate'
+import Repeat from '../../components/Icons/Repeat'
+import FilePlus from '../../components/Icons/FilePlus'
+import MoreVertical from '../../components/Icons/MoreVertical'
+import useSWR from 'swr'
+import { fetcher } from '../../lib/fetcher'
 
 interface Roles {
   name: string
   departament: string
   agents_quantity: number
 }
-interface MainProps {
-  data: [Roles]
+interface DataProps {
+  roles: [Roles]
 }
 
 interface IsOpenList {
   [key: string]: boolean
 }
-const Cargos: React.FC<MainProps> = ({ data }) => {
+const Roles: React.FC = () => {
+  const { data, error } = useSWR<DataProps>('https://pp-api-desafio.herokuapp.com/roles', fetcher)
   const [modalCategoriesIsOpen, setModalCategoriesIsOpen] = useState(false)
   const [modalIsOpenList, setModalIsOpenList] = useState<IsOpenList>({})
   const [dropdownIsOpenList, setDropdownIsOpenList] = useState<IsOpenList>({})
-  const router = useRouter()
 
   useEffect(() => {
-    const createActiveStatusList = () => {
-      const activeStatusList = data.reduce((prev, curr) => {
-        return { ...prev, [curr.name + curr.departament]: false }
-      }, {})
-      setModalIsOpenList(activeStatusList)
-      setDropdownIsOpenList(activeStatusList)
+    if (data) {
+      const createActiveStatusList = () => {
+        const activeStatusList = data.roles.reduce((prev, curr) => {
+          return { ...prev, [curr.name + curr.departament]: false }
+        }, {})
+        setModalIsOpenList(activeStatusList)
+        setDropdownIsOpenList(activeStatusList)
+      }
+      createActiveStatusList()
     }
-    createActiveStatusList()
   }, [data])
 
   const updateActiveStatusList = (
@@ -96,13 +97,14 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
         <PageTitle>Organização</PageTitle>
         <Content>
           <Tabs>
-            <Tabs.Tab url='/' isActive={router.pathname === '/'}>
+            <Tabs.Tab url='/agents' isActive={false}>
               Colaboradores
             </Tabs.Tab>
-            <Tabs.Tab url='/cargos' isActive={router.pathname !== '/'}>
+            <Tabs.Tab url='/roles' isActive={true}>
               Cargos
             </Tabs.Tab>
           </Tabs>
+
           <SelectModal
             isOpen={modalCategoriesIsOpen}
             openFn={() => toggleCategoriesModal(true)}
@@ -111,7 +113,7 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
           />
           <SearchInput />
           <SectionTitle>Listagem de cargos</SectionTitle>
-          {data && (
+          {data?.roles && (
             <TableDrop>
               <TableDrop.Header>
                 <TableDrop.Row numberOfColumns={4}>
@@ -122,7 +124,7 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                 </TableDrop.Row>
               </TableDrop.Header>
               <TableDrop.Body>
-                {data.map(role => (
+                {data.roles.map(role => (
                   <TableDrop.Row
                     numberOfColumns={4}
                     key={role.name + role.departament}
@@ -158,20 +160,16 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                         isOpen={modalIsOpenList[role.name + role.departament]}
                         closeFn={closeAnyActiveOptionsModal}
                       >
-                        <ModalOptions.Option url={'/cargo/create'} isActive={true} icon={Eye}>
+                        <ModalOptions.Option url={'/roles/1'} isActive={true} icon={Eye}>
                           Ver cargo
                         </ModalOptions.Option>
-                        <ModalOptions.Option url={'/cargo/create'} isActive={false} icon={Edit}>
+                        <ModalOptions.Option url={'/roles/1'} isActive={false} icon={Edit}>
                           Editar
                         </ModalOptions.Option>
-                        <ModalOptions.Option
-                          url={'/cargo/create'}
-                          isActive={false}
-                          icon={Duplicate}
-                        >
+                        <ModalOptions.Option url={'/cargos/1'} isActive={false} icon={Duplicate}>
                           Duplicar
                         </ModalOptions.Option>
-                        <ModalOptions.Option url={'/cargo/create'} isActive={false} icon={Repeat}>
+                        <ModalOptions.Option url={'/roles/1'} isActive={false} icon={Repeat}>
                           Excluir
                         </ModalOptions.Option>
                       </ModalOptions>
@@ -190,13 +188,4 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { data } = await axios.get('https://pp-api-desafio.herokuapp.com/roles')
-  return {
-    props: {
-      data: data.roles,
-    },
-  }
-}
-
-export default Cargos
+export default Roles

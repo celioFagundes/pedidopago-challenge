@@ -1,16 +1,16 @@
-import type { GetServerSideProps } from 'next'
-import axios from 'axios'
-import Seo from '../../components/Seo'
+import Seo from '../../../components/Seo'
 
-import Layout from '../../components/Layout'
-import Table from '../../components/Table'
-import BackButton from '../../components/BackButton'
-import Select from '../../components/Select'
+import Layout from '../../../components/Layout'
+import Table from '../../../components/Table'
+import BackButton from '../../../components/BackButton'
+import Select from '../../../components/Select'
 
-import { SelectsRow, Content, PageTitleWrapper } from '../../styles/cargos/create'
-import { PageTitle, SectionTitle } from '../../styles/texts'
-import CheckboxOn from '../../components/Icons/CheckboxOn'
-import CheckboxOff from '../../components/Icons/CheckboxOff'
+import { SelectsRow, Content, PageTitleWrapper } from '../../../styles/cargos/create'
+import { PageTitle, SectionTitle } from '../../../styles/texts'
+import CheckboxOn from '../../../components/Icons/CheckboxOn'
+import CheckboxOff from '../../../components/Icons/CheckboxOff'
+import useSWR from 'swr'
+import { fetcher } from '../../../lib/fetcher'
 
 interface GroupRules {
   role: string
@@ -22,26 +22,27 @@ interface Role {
   grouprules: [GroupRules]
 }
 
-interface MainProps {
-  data: Role
+interface DataProps {
+  role: Role
 }
-const CreateCargo: React.FC<MainProps> = ({ data }) => {
+const Role: React.FC = () => {
+  const { data, error } = useSWR<DataProps>('https://pp-api-desafio.herokuapp.com/role/1', fetcher)
   return (
     <>
       <Seo title='Criar novo cargo' description='Criação de um novo cargo' />
       <Layout>
         <PageTitleWrapper>
-          <BackButton url='/cargos' />
+          <BackButton url='/roles' />
           <PageTitle>Cargos e Permissôes</PageTitle>
         </PageTitleWrapper>
         <Content>
           <SectionTitle>Dados do cargo</SectionTitle>
           <SelectsRow>
             <Select label='Departamento'>
-              <Select.Option>{data.department}</Select.Option>
+              <Select.Option>{data?.role.department}</Select.Option>
             </Select>
             <Select label='Cargo'>
-              <Select.Option>{data.name}</Select.Option>
+              <Select.Option>{data?.role.name}</Select.Option>
             </Select>
           </SelectsRow>
           <SectionTitle>Listagem de permissões</SectionTitle>
@@ -56,7 +57,7 @@ const CreateCargo: React.FC<MainProps> = ({ data }) => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {data.grouprules.map(rule => (
+                {data.role.grouprules.map(rule => (
                   <Table.Row key={rule.role}>
                     <Table.Td>{rule.role} </Table.Td>
                     <Table.Td>
@@ -75,13 +76,5 @@ const CreateCargo: React.FC<MainProps> = ({ data }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { data } = await axios.get('https://pp-api-desafio.herokuapp.com/role/1')
-  return {
-    props: {
-      data: data.role,
-    },
-  }
-}
 
-export default CreateCargo
+export default Role
