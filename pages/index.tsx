@@ -189,6 +189,7 @@ const Home: React.FC<MainProps> = ({ data }) => {
                         <MoreVertical />
                       </DotsIcon>
                       <ModalOptions
+                        
                         isOpen={modalIsOpenList[agent.agent_id]}
                         closeFn={closeAnyActiveOptionsModal}
                       >

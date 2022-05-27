@@ -133,11 +133,7 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                       <Label>Cargo</Label>
                       <Value>{role.name}</Value>
                       <DropdownIcon>
-                        {!dropdownIsOpenList[role.name + role.departament] ? (
-                          <Down/>
-                        ) : (
-                          <Up/>
-                        )}
+                        {!dropdownIsOpenList[role.name + role.departament] ? <Down /> : <Up />}
                       </DropdownIcon>
                     </TableDrop.Td>
                     <TableDrop.Td>
@@ -150,12 +146,12 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                     </TableDrop.Td>
                     <TableDrop.Td>
                       <DotsIcon onClick={() => toggleOptionsModal(role.name + role.departament)}>
-                        <MoreVertical/>
+                        <MoreVertical />
                       </DotsIcon>
                       <ActionsContainer
                         onClick={() => toggleOptionsModal(role.name + role.departament)}
                       >
-                        <FilePlus/>
+                        <FilePlus />
                         <ActionLabel>Ações</ActionLabel>
                       </ActionsContainer>
                       <ModalOptions
@@ -163,16 +159,20 @@ const Cargos: React.FC<MainProps> = ({ data }) => {
                         closeFn={closeAnyActiveOptionsModal}
                       >
                         <ModalOptions.Option url={'/cargo/create'} isActive={true} icon={Eye}>
-                        Ver cargo
+                          Ver cargo
                         </ModalOptions.Option>
                         <ModalOptions.Option url={'/cargo/create'} isActive={false} icon={Edit}>
-                        Editar
+                          Editar
                         </ModalOptions.Option>
-                        <ModalOptions.Option url={'/cargo/create'} isActive={false} icon={Duplicate}>
-                        Duplicar
+                        <ModalOptions.Option
+                          url={'/cargo/create'}
+                          isActive={false}
+                          icon={Duplicate}
+                        >
+                          Duplicar
                         </ModalOptions.Option>
                         <ModalOptions.Option url={'/cargo/create'} isActive={false} icon={Repeat}>
-                        Excluir
+                          Excluir
                         </ModalOptions.Option>
                       </ModalOptions>
                     </TableDrop.Td>

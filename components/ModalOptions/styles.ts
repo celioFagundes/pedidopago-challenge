@@ -7,12 +7,13 @@ type IsActive = {
 type IsOpen = {
   isOpen?: boolean
 }
+
 export const ModalMenu = styled.div<IsOpen>`
   position: absolute;
   display: ${props => (props.isOpen ? 'block ' : 'none')};
   min-width: 340px;
   right: 20px;
-  bottom: -140px;
+  top: 55px;
   background-color: #fff;
   box-shadow: 0px 8px 24px rgba(165, 171, 179, 0.4);
   border-radius: 8px;
@@ -22,6 +23,7 @@ export const ModalMenu = styled.div<IsOpen>`
     position: fixed;
     display: block;
     left: 4%;
+    top: auto;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     bottom: ${props => (props.isOpen ? '0' : '-1000px')};

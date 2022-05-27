@@ -6,6 +6,7 @@ type Props = {
   children: React.ReactNode
   isOpen: boolean
   closeFn?: () => void
+  
 }
 
 interface Options {
@@ -13,12 +14,13 @@ interface Options {
   url: string
   icon: React.FC
   isActive: boolean
+  
 }
 const ModalOptions = (props: Props) => {
   return (
     <>
       <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} />
-      <ModalMenu isOpen={props.isOpen}>{props.children}</ModalMenu>
+      <ModalMenu  isOpen={props.isOpen}>{props.children}</ModalMenu>
     </>
   )
 }
