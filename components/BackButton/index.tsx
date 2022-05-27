@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import ArrowLeft from '../Icons/ArrowLeft'
 import { BackIcon } from './styles'
 
 type Props = {
@@ -10,7 +10,7 @@ const BackButton = (props: Props) => {
   return (
     <Link href={props.url}>
       <BackIcon>
-        <AiOutlineArrowLeft />
+        <ArrowLeft/>
       </BackIcon>
     </Link>
   )

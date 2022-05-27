@@ -39,28 +39,31 @@ export const ModalBackground = styled.div<IsOpen>`
   background-color: ${props => (props.isOpen ? 'rgba(0,0,0,0.4)' : 'transparent')};
   transition: all 0.4s ease-in-out;
   z-index: 4000;
-  @media (min-width: 768px) {
-    background-color: transparent;
-  } ;
 `
 
-export const ModalOption = styled.div`
+export const ModalOption = styled.div<IsActive>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 25px 32px;
   border-radius: 8px;
   transition: all 100ms ease-in-out;
+  color: ${props => (props.isActive ? '#587169' : '#A3B8B0')};
   &:hover {
     cursor: pointer;
   }
+  & > div > svg >path {
+    fill:${props => (props.isActive ? '#587169' : '#A3B8B0')};
+  }
+  
 `
 export const ModalOptionIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #cad6d1;
-  margin-right: 16px;
+  color: #fff;
+  
+  
 `
 export const ModalOptionLink = styled.a<IsActive>`
   width: 140px;
@@ -68,4 +71,5 @@ export const ModalOptionLink = styled.a<IsActive>`
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  margin-left: 16px;
 `

@@ -4,11 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Seo from '../components/Seo'
-
-import { BsThreeDotsVertical } from 'react-icons/bs'
-import { AiOutlineEye, AiOutlineFileAdd } from 'react-icons/ai'
-import { RiDeleteBinLine } from 'react-icons/ri'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import Eye from '../components/Icons/Eye'
 
 import Layout from '../components/Layout'
 import TableDrop from '../components/TableToDropdown'
@@ -36,6 +32,12 @@ import {
   Content,
 } from '../styles/home'
 import { PageTitle, SectionTitle } from '../styles/texts'
+import Trash from '../components/Icons/Trash'
+import Down from '../components/Icons/Down'
+import Up from '../components/Icons/Up'
+import FilePlus from '../components/Icons/FilePlus'
+import MoreVertical from '../components/Icons/MoreVertical'
+import User from '../components/Icons/User'
 
 interface Agent {
   agent_id: number
@@ -151,7 +153,7 @@ const Home: React.FC<MainProps> = ({ data }) => {
                           <Image
                             src={agent.image}
                             layout='fill'
-                            objectFit='contain'
+                            objectFit='cover'
                             alt='avatar'
                             style={{ borderRadius: '50%' }}
                           />
@@ -159,11 +161,7 @@ const Home: React.FC<MainProps> = ({ data }) => {
                         <Name>{agent.name}</Name>
                       </AvatarNameContainer>
                       <DropdownIcon>
-                        {!dropdownIsOpenList[agent.agent_id] ? (
-                          <MdOutlineKeyboardArrowDown />
-                        ) : (
-                          <MdOutlineKeyboardArrowUp />
-                        )}
+                        {!dropdownIsOpenList[agent.agent_id] ? <Down /> : <Up />}
                       </DropdownIcon>
                     </TableDrop.Td>
 
@@ -188,25 +186,21 @@ const Home: React.FC<MainProps> = ({ data }) => {
 
                     <TableDrop.Td>
                       <DotsIcon onClick={() => toggleOptionsModal(agent.agent_id)}>
-                        <BsThreeDotsVertical size={16} />
+                        <MoreVertical />
                       </DotsIcon>
                       <ModalOptions
                         isOpen={modalIsOpenList[agent.agent_id]}
                         closeFn={closeAnyActiveOptionsModal}
                       >
-                        <ModalOptions.Option
-                          Icon={AiOutlineEye}
-                          url={'/colaborador/1'}
-                          isActive={true}
-                        >
+                        <ModalOptions.Option url={'/colaborador/1'} isActive={true} icon={Eye}>
                           Ver colaborador
                         </ModalOptions.Option>
-                        <ModalOptions.Option Icon={RiDeleteBinLine} url={'/'} isActive={false}>
+                        <ModalOptions.Option url={'/'} isActive={false} icon={Trash}>
                           Excluir
                         </ModalOptions.Option>
                       </ModalOptions>
                       <ActionsContainer onClick={() => toggleOptionsModal(agent.agent_id)}>
-                        <AiOutlineFileAdd size={24} color='#1DD195' />
+                        <FilePlus />
                         <ActionLabel>Ações</ActionLabel>
                       </ActionsContainer>
                     </TableDrop.Td>

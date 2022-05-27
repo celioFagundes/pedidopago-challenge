@@ -3,10 +3,6 @@ import axios from 'axios'
 import Image from 'next/image'
 import Seo from '../../components/Seo'
 
-import { HiOutlineIdentification } from 'react-icons/hi'
-import { BiPhoneCall } from 'react-icons/bi'
-import { FiCalendar } from 'react-icons/fi'
-
 import Layout from '../../components/Layout'
 import BackButton from '../../components/BackButton'
 import Card from '../../components/Card'
@@ -23,8 +19,13 @@ import {
   SectionOrganizationalData,
   SelectsContainerWrapper,
   SelectsRow,
+  UserImage,
 } from '../../styles/colaborador'
 import { PageTitle, SectionTitle } from '../../styles/texts'
+import User from '../../components/Icons/User'
+import ID from '../../components/Icons/ID'
+import Phone from '../../components/Icons/Phone'
+import Calendar from '../../components/Icons/Calender;'
 
 interface Phone {
   ddd: number
@@ -69,15 +70,22 @@ const Colaborador: React.FC<MainProps> = ({ data }) => {
         </PageTitleWrapper>
         <Content>
           <UserContainer>
-            <Image
-              src={data.image}
-              layout='fixed'
-              height={80}
-              width={80}
-              objectFit='cover'
-              alt='avatar'
-              style={{ borderRadius: '50%' }}
-            />
+            <UserImage>
+              {data.image ? (
+                <Image
+                  src={data.image}
+                  layout='fixed'
+                  height={80}
+                  width={80}
+                  objectFit='cover'
+                  alt='avatar'
+                  style={{ borderRadius: '50%' }}
+                />
+              ) : (
+                <User/>
+              )}
+            </UserImage>
+
             <UserData>
               <Username>{data.name}</Username>
               <Email>{data.email}</Email>
@@ -86,17 +94,17 @@ const Colaborador: React.FC<MainProps> = ({ data }) => {
           <SectionTitle>Informações pessoais</SectionTitle>
           <CardsWrapper>
             <Card
-              Icon={HiOutlineIdentification}
+              Icon={ID}
               dataTitle={data.document.type}
               data={transformCPF(data.document.number.toString())}
             />
             <Card
-              Icon={BiPhoneCall}
+              Icon={Phone}
               dataTitle='Telefone'
               data={`+${data.phone.ddi} ${data.phone.ddd} ${data.phone.number}`}
             />
             <Card
-              Icon={FiCalendar}
+              Icon={Calendar}
               dataTitle='Nascimento'
               data={new Date(data.birth_date).toLocaleDateString()}
             />

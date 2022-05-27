@@ -101,7 +101,7 @@ export const Td = styled.div<GridSpan>`
 export const DropdownIcon = styled.div`
   position: absolute;
   right: 10px;
-  top: 25px;
+  top: 30%;
   @media (min-width: 768px) {
     display: none;
   }
@@ -109,12 +109,16 @@ export const DropdownIcon = styled.div`
 export const Label = styled(BoldText)`
   margin-bottom: 6px;
   font-size: 12px;
+  color: #587169;
+
   @media (min-width: 768px) {
     display: none;
   }
 `
 export const Value = styled.p`
   font-size: 12px;
+  color: #587169;
+
 `
 export const DotsIcon = styled.div`
   cursor: pointer;

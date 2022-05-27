@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import { IconType } from 'react-icons/lib'
 import { ModalBackground, ModalMenu, ModalOption, ModalOptionIcon, ModalOptionLink } from './styles'
 
 type Props = {
@@ -12,14 +11,13 @@ type Props = {
 interface Options {
   children: React.ReactNode
   url: string
-  Icon: IconType
+  icon: React.FC
   isActive: boolean
-  
 }
 const ModalOptions = (props: Props) => {
   return (
     <>
-      <ModalBackground isOpen={props.isOpen} onClick = {props.closeFn}/>
+      <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} />
       <ModalMenu isOpen={props.isOpen}>{props.children}</ModalMenu>
     </>
   )
@@ -28,11 +26,10 @@ const ModalOptions = (props: Props) => {
 const Option = (props: Options) => {
   return (
     <Link href={props.url}>
-      <ModalOption>
+      <ModalOption isActive = {props.isActive}>
         <ModalOptionIcon>
-          <props.Icon size={22} />
+          <props.icon/>
         </ModalOptionIcon>
-
         <ModalOptionLink isActive={props.isActive}>{props.children}</ModalOptionLink>
       </ModalOption>
     </Link>

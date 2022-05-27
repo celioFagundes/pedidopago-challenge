@@ -2,14 +2,15 @@ import type { GetServerSideProps } from 'next'
 import axios from 'axios'
 import Seo from '../../components/Seo'
 
-import { AiOutlineCheck } from 'react-icons/ai'
 import Layout from '../../components/Layout'
 import Table from '../../components/Table'
 import BackButton from '../../components/BackButton'
 import Select from '../../components/Select'
 
-import { SelectsRow, Checkbox, Content, PageTitleWrapper } from '../../styles/cargos/create'
+import { SelectsRow, Content, PageTitleWrapper } from '../../styles/cargos/create'
 import { PageTitle, SectionTitle } from '../../styles/texts'
+import CheckboxOn from '../../components/Icons/CheckboxOn'
+import CheckboxOff from '../../components/Icons/CheckboxOff'
 
 interface GroupRules {
   role: string
@@ -59,20 +60,10 @@ const CreateCargo: React.FC<MainProps> = ({ data }) => {
                   <Table.Row key={rule.role}>
                     <Table.Td>{rule.role} </Table.Td>
                     <Table.Td>
-                      <Checkbox isActive={rule.permissions.includes('read')}>
-                        <AiOutlineCheck />
-                      </Checkbox>
+                      {rule.permissions.includes('read') ? <CheckboxOn /> : <CheckboxOff />}
                     </Table.Td>
-                    <Table.Td>
-                      <Checkbox isActive={rule.permissions.includes('write')}>
-                        <AiOutlineCheck />
-                      </Checkbox>
-                    </Table.Td>
-                    <Table.Td>
-                      <Checkbox isActive={rule.permissions.includes('delete')}>
-                        <AiOutlineCheck />
-                      </Checkbox>
-                    </Table.Td>
+                    <Table.Td>{rule.permissions.includes('write') ? <CheckboxOn /> : <CheckboxOff />}</Table.Td>
+                    <Table.Td>{rule.permissions.includes('delete') ? <CheckboxOn /> : <CheckboxOff />}</Table.Td>
                   </Table.Row>
                 ))}
               </Table.Body>

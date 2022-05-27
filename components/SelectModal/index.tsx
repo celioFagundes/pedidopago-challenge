@@ -1,6 +1,7 @@
+
 import Link from 'next/link'
-import { AiOutlineClose } from 'react-icons/ai'
-import { BsThreeDotsVertical } from 'react-icons/bs'
+import CloseX from '../Icons/CloseX'
+import MoreVertical from '../Icons/MoreVertical'
 import {
   Wrapper,
   Label,
@@ -26,22 +27,22 @@ const SelectModal = (props: Props) => {
       <Container onClick={props.openFn}>
         <Label>{props.label}</Label>
         <Icon>
-          <BsThreeDotsVertical />
+          <MoreVertical/>
         </Icon>
       </Container>
       <>
-        <ModalBackground isOpen={props.isOpen} onClick={props.closeFn}/>
+        <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} />
         <Modal isOpen={props.isOpen}>
           <ModalHeader>
             <ModalLabel>Categorias</ModalLabel>
             <Icon onClick={props.closeFn}>
-              <AiOutlineClose />
+              <CloseX />
             </Icon>
           </ModalHeader>
-          <Link href='/' >
+          <Link href='/'>
             <ModalOption onClick={props.closeFn}>Colaboradores</ModalOption>
           </Link>
-          <Link href='/cargos' >
+          <Link href='/cargos'>
             <ModalOption onClick={props.closeFn}>Cargos</ModalOption>
           </Link>
         </Modal>

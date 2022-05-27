@@ -1,5 +1,6 @@
-import { BsArrowRepeat } from 'react-icons/bs'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import Left from '../Icons/Left'
+import Refresh from '../Icons/Refresh'
+import Right from '../Icons/Right'
 import { MobilePagination, MobilePaginationLabel, PaginationButton, PaginationLabel, Wrapper } from './styles'
 
 type Props = {}
@@ -8,14 +9,14 @@ const Pagination = (props: Props) => {
   return (
     <Wrapper>
       <PaginationButton isDisabled = {true}>
-        <MdKeyboardArrowLeft size = {28} />
+        <Left/>
       </PaginationButton>
       <PaginationLabel>1 de 10</PaginationLabel>
       <PaginationButton isDisabled = {false}>
-        <MdKeyboardArrowRight size = {28} />
+        <Right/>
       </PaginationButton>
       <MobilePagination>
-        <BsArrowRepeat color = '#1DD195' size = {28}/>
+        <Refresh/>
         <MobilePaginationLabel>Carregar mais</MobilePaginationLabel>
       </MobilePagination>
     </Wrapper>

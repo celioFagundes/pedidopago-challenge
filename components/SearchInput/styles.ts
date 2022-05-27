@@ -24,8 +24,9 @@ export const Label = styled.label`
 `
 export const Icon = styled.div`
   position: absolute;
-  top: 22px;
-  left: 22px;
+  top: 21px;
+  left: 20px;
+  color:#34423D;
 `
 export const Input = styled.input`
   height: 100%;

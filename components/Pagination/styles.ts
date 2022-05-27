@@ -25,6 +25,9 @@ export const PaginationButton = styled.button<buttonProps>`
   border-color: ${props => (props.isDisabled ? '#cad6d1' : '#709085')};
   border-radius: 8px 0px 0px 8px;
   transition: all 100ms ease-in-out;
+  & > svg > path{
+    fill: ${props => (props.isDisabled ? '#cad6d1' : '#709085')};
+  }
   &:nth-of-type(2) {
     border-radius: 0px 8px 8px 0px;
   }
@@ -40,7 +43,7 @@ export const PaginationButton = styled.button<buttonProps>`
 
 export const PaginationLabel = styled(BoldText)`
   margin: 0 12px;
-  color: #a3b8b0;
+  color: #34423d;
   @media (max-width: 768px) {
     display: none;
   }

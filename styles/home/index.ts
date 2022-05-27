@@ -34,6 +34,8 @@ export const Name = styled.p`
   font-weight: 600;
   font-size: 12px;
   margin-left: 8px;
+  color: #587169;
+
  
 `
 export const Status = styled.div<StatusProps>`
@@ -55,4 +57,6 @@ export const ImageWrapper = styled.div`
   position: relative;
   min-height: 32px;
   min-width: 32px;
+  border-radius:50%;
+  background: linear-gradient(0deg, #eaefed, #eaefed);
 `

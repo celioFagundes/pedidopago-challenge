@@ -1,8 +1,7 @@
-import { IconType } from 'react-icons'
 import { Data, DataTitle, Icon, Wrapper, DataWrapper } from './styles'
 
 type Props = {
-    Icon: IconType
+    Icon: React.FC 
     dataTitle: string | number
     data: string | number
 }
@@ -11,7 +10,7 @@ const Card = (props: Props) => {
   return (
     <Wrapper>
       <Icon>
-        <props.Icon size={20} />
+        <props.Icon/>
       </Icon>
       <DataWrapper>
         <DataTitle>{props.dataTitle}</DataTitle>

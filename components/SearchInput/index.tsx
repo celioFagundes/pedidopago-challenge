@@ -1,4 +1,4 @@
-import { FiSearch } from 'react-icons/fi'
+import Search from '../Icons/Search'
 import { Input, Label, Wrapper, Icon } from './styles'
 type Props = {}
 
@@ -7,10 +7,10 @@ const SearchInput = (props: Props) => {
     <Wrapper>
       <Label>Pesquisar por</Label>
       <Icon>
-        <FiSearch size ={22}/>
+        <Search/>
       </Icon>
 
-      <Input placeholder='Pesquise por nome ou cpf'/>
+      <Input placeholder='Pesquise por nome ou cpf' />
     </Wrapper>
   )
 }

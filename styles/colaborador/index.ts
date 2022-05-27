@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { BoldText, LightText } from '../texts'
 
 export const Content = styled.div`
   background-color: #fff;
@@ -17,6 +18,15 @@ export const UserContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
 `
+export const UserImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius:50%;
+  background: linear-gradient(0deg, #eaefed, #eaefed);
+`
 export const UserData = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,17 +34,11 @@ export const UserData = styled.div`
   align-items: flex-start;
   margin-left: 24px;
 `
-export const Username = styled.p`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
+export const Username = styled(BoldText)`
   font-size: 18px;
   color: #34423d;
 `
-export const Email = styled.p`
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
+export const Email = styled(LightText)`
   font-size: 14px;
   color: #587169;
 `
