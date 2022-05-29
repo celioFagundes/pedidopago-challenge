@@ -27,7 +27,7 @@ import {
   Status,
   BottomContainer,
   Content,
-} from '../../styles/home'
+} from '../../styles/agents'
 import { PageTitle, SectionTitle } from '../../styles/texts'
 import Trash from '../../components/Icons/Trash'
 import Down from '../../components/Icons/Down'

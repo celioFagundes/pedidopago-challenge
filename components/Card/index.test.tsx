@@ -11,6 +11,7 @@ describe('Card', () => {
     const phoneIcon=  screen.getByTestId('phone-icon')
     const dataTitle = screen.getByText('Telefone')
     const data = screen.getByText('+55 (11) 9 123456789')
+    
     expect(phoneIcon).toBeInTheDocument()
     expect(dataTitle).toBeInTheDocument()
     expect(data).toBeInTheDocument()

@@ -5,7 +5,7 @@ import Table from '../../../components/Table'
 import BackButton from '../../../components/BackButton'
 import Select from '../../../components/Select'
 
-import { SelectsRow, Content, PageTitleWrapper } from '../../../styles/cargos/create'
+import { SelectsRow, Content, PageTitleWrapper } from '../../../styles/roles/create'
 import { PageTitle, SectionTitle } from '../../../styles/texts'
 import CheckboxOn from '../../../components/Icons/CheckboxOn'
 import CheckboxOff from '../../../components/Icons/CheckboxOff'

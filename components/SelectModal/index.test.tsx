@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import {  render, screen,} from '@testing-library/react'
 import SelectModal from './index'
 
 describe('SelectModal', () => {
@@ -13,9 +13,12 @@ describe('SelectModal', () => {
 
     expect(label).toBeInTheDocument()
     expect(label).toHaveTextContent('Colaboradores')
-    expect(modal).toBeInTheDocument()
+
     expect(moreVerticalIcon).toBeInTheDocument()
+
+    expect(modal).toBeInTheDocument()
     expect(modal).toHaveClass('css-cm2gk6')
+
     expect(modalBackground).toHaveClass('css-1sbyw1o')
   })
   it('renders the select modal when closed', () => {
@@ -29,10 +32,12 @@ describe('SelectModal', () => {
 
     expect(label).toBeInTheDocument()
     expect(label).toHaveTextContent('Colaboradores')
+
     expect(moreVerticalIcon).toBeInTheDocument()
 
     expect(modal).toBeInTheDocument()
     expect(modal).toHaveClass('css-137hrm7')
+
     expect(modalBackground).toBeInTheDocument()
     expect(modalBackground).toHaveClass('css-vt2u1g')
   })

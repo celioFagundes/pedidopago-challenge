@@ -12,8 +12,10 @@ describe('Tabs', () => {
       </Tabs>
     )
     const tabs: HTMLElement[] = screen.getAllByTestId('tab')
+
     expect(tabs[0]).toHaveStyleRule('color', '#34423D')
     expect(tabs[0]).toHaveStyleRule('border-color', '#22e0a1')
+    
     expect(tabs[1]).toHaveStyleRule('color', '#A3B8B0')
     expect(tabs[1]).toHaveStyleRule('border-color', 'transparent')
   })

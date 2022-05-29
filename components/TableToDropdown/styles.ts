@@ -108,7 +108,6 @@ export const DropdownIcon = styled.div`
 export const Label = styled(BoldText)`
   margin-bottom: 6px;
   font-size: 12px;
-  color: #587169;
 
   @media (min-width: 768px) {
     display: none;
@@ -116,7 +115,6 @@ export const Label = styled(BoldText)`
 `
 export const Value = styled.p`
   font-size: 12px;
-  color: #587169;
 
 `
 export const DotsIcon = styled.div`

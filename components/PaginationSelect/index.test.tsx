@@ -4,6 +4,7 @@ import PaginationSelect from './index'
 describe('PaginationSelect', () => {
   it('renders the pagination select register quantity to show', () => {
     render(<PaginationSelect />)
+    
     const message = screen.getByText('Mostrando 10 de 50 registros')
     const select = screen.getByTestId('pagination-select')
     const options: HTMLOptionElement[] = screen.getAllByTestId('pagination-select-option')

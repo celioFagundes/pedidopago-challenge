@@ -16,7 +16,7 @@ import {
   ActionsContainer,
   DotsIcon,
 } from '../../components/TableToDropdown/styles'
-import { BottomContainerSingle, Content } from '../../styles/cargos'
+import { BottomContainerSingle, Content } from '../../styles/roles'
 import { PageTitle, SectionTitle } from '../../styles/texts'
 import Eye from '../../components/Icons/Eye'
 import Down from '../../components/Icons/Down'

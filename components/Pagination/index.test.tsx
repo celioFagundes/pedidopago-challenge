@@ -13,9 +13,11 @@ describe('Pagination', () => {
     const refreshIcon = screen.getByRole('refresh-icon')
 
     expect(label).toBeInTheDocument()
+
     expect(prevButton).toBeInTheDocument()
     expect(nextButton).toBeInTheDocument()
     expect(loadMoreButton).toBeInTheDocument()
+
     expect(prevIcon).toBeInTheDocument()
     expect(nextIcon).toBeInTheDocument()
     expect(refreshIcon).toBeInTheDocument()

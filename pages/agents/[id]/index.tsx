@@ -18,7 +18,7 @@ import {
   SelectsContainerWrapper,
   SelectsRow,
   UserImage,
-} from '../../../styles/colaborador'
+} from '../../../styles/agents/details'
 import { PageTitle, SectionTitle } from '../../../styles/texts'
 import User from '../../../components/Icons/User'
 import ID from '../../../components/Icons/ID'

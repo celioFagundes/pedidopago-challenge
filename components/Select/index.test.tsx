@@ -14,10 +14,13 @@ describe('Select', () => {
     const label = screen.getByText('Cargo')
     const select = screen.getByTestId('select')
     const options: HTMLOptionElement[] = screen.getAllByTestId('select-option')
+    
     fireEvent.change(select, { target: { value: 'Gerente' } })
+
     expect(label).toBeInTheDocument()
     expect(select).toBeInTheDocument()
     expect(select).toHaveStyleRule('background-color', '#000')
+
     expect(options[0].selected).toBeFalsy()
     expect(options[1].selected).toBeTruthy()
     expect(options).toHaveLength(2)

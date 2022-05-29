@@ -34,7 +34,6 @@ export const Name = styled.p`
   font-weight: 600;
   font-size: 12px;
   margin-left: 8px;
-  color: #587169;
 
  
 `
