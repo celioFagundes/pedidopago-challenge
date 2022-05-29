@@ -35,7 +35,7 @@ const SelectModal = (props: Props) => {
           onClick={props.closeFn}
           data-testid='modal-background'
         />
-        <Modal isOpen={props.isOpen}>
+        <Modal isOpen={props.isOpen} data-testid='modal'>
           <ModalHeader>
             <ModalLabel>Categorias</ModalLabel>
             <Icon onClick={props.closeFn} data-testid='close-modal-x'>

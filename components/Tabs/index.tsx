@@ -17,7 +17,7 @@ const Tabs = (props: ContainerProps) => {
 const Tab: React.FC<TabProps> = ({ url, children, isActive }) => {
   return (
     <Link href={url}>
-      <TabLink isActive={isActive}>{children}</TabLink>
+      <TabLink isActive={isActive} data-testid='tab'>{children}</TabLink>
     </Link>
   )
 }

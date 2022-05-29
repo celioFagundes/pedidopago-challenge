@@ -2,7 +2,7 @@ type Props = {}
 
 const ID: React.FC = (props: Props) => {
   return (
-    <svg width='18' height='19' viewBox='0 0 18 19' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width='18' height='19' viewBox='0 0 18 19' fill='none' xmlns='http://www.w3.org/2000/svg' data-testid='id-icon'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'

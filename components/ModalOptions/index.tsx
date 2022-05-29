@@ -19,8 +19,8 @@ interface Options {
 const ModalOptions = (props: Props) => {
   return (
     <>
-      <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} />
-      <ModalMenu  isOpen={props.isOpen}>{props.children}</ModalMenu>
+      <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} data-testid='modal-options-background'/>
+      <ModalMenu  isOpen={props.isOpen}  data-testid='modal-options'>{props.children}</ModalMenu>
     </>
   )
 }

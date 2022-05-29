@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import Select from './index'
+import { matchers } from '@emotion/jest'
+expect.extend(matchers)
 
 describe('Select', () => {
   it('renders the select', () => {
@@ -15,6 +17,7 @@ describe('Select', () => {
     fireEvent.change(select, { target: { value: 'Gerente' } })
     expect(label).toBeInTheDocument()
     expect(select).toBeInTheDocument()
+    expect(select).toHaveStyleRule('background-color', '#000')
     expect(options[0].selected).toBeFalsy()
     expect(options[1].selected).toBeTruthy()
     expect(options).toHaveLength(2)

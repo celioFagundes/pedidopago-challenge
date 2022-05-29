@@ -3,7 +3,7 @@ import TableDrop from './index'
 import { matchers } from '@emotion/jest'
 expect.extend(matchers)
 describe('TableDrop', () => {
-  it('renders the table drop with 7 columns and grid span', () => {
+  it('renders the table drop', () => {
     render(
       <TableDrop>
         <TableDrop.Header>
