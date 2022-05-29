@@ -1,4 +1,4 @@
-Desafio Frontend PedidoPago-
+Desafio Frontend PedidoPago
 
 - NextJS/Typescript
 - Estilos utilizando @emotion/styled
