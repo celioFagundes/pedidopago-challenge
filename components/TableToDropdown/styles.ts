@@ -33,7 +33,7 @@ export const Tr = styled.div<TableRowType>`
   align-items: center;
   width: 100%;
   padding: 0 16px;
-  color: '#587169';
+  color: #587169;
   color: ${props => props.status === 'inactive' && '#A3B8B0'};
   @media (max-width: 768px) {
     display: grid;
@@ -41,7 +41,6 @@ export const Tr = styled.div<TableRowType>`
     grid-template-columns: 1fr 1fr;
     max-height: ${props => (props.isActive ? '1000px' : props.maxHeight)};
     overflow-y: hidden;
-    border-color: ${props => props.isActive && '#B5F1DD'};
     transition: max-height 0.4s ease-in-out;
     background: #ffffff;
     border: 2px solid #eaefed;

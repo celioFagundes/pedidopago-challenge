@@ -1,4 +1,3 @@
-
 import Link from 'next/link'
 import CloseX from '../Icons/CloseX'
 import MoreVertical from '../Icons/MoreVertical'
@@ -25,17 +24,21 @@ const SelectModal = (props: Props) => {
   return (
     <Wrapper>
       <Container onClick={props.openFn}>
-        <Label>{props.label}</Label>
+        <Label data-testid='label'>{props.label}</Label>
         <Icon>
-          <MoreVertical/>
+          <MoreVertical />
         </Icon>
       </Container>
       <>
-        <ModalBackground isOpen={props.isOpen} onClick={props.closeFn} />
+        <ModalBackground
+          isOpen={props.isOpen}
+          onClick={props.closeFn}
+          data-testid='modal-background'
+        />
         <Modal isOpen={props.isOpen}>
           <ModalHeader>
             <ModalLabel>Categorias</ModalLabel>
-            <Icon onClick={props.closeFn}>
+            <Icon onClick={props.closeFn} data-testid='close-modal-x'>
               <CloseX />
             </Icon>
           </ModalHeader>

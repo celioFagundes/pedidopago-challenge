@@ -9,6 +9,7 @@ const Refresh:React.FC = (props: Props) => {
           clipRule='evenodd'
           d='M16.5 14C16.5 13.4477 16.9477 13 17.5 13H23.5C24.0523 13 24.5 13.4477 24.5 14V20C24.5 20.5523 24.0523 21 23.5 21C22.9477 21 22.5 20.5523 22.5 20V15H17.5C16.9477 15 16.5 14.5523 16.5 14Z'
           fill='#1DD195'
+          role='refresh-icon'
         />
         <path
           fillRule='evenodd'

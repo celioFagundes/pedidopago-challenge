@@ -5,12 +5,11 @@ type Props = {}
 const SearchInput = (props: Props) => {
   return (
     <Wrapper>
-      <Label>Pesquisar por</Label>
-      <Icon>
-        <Search/>
+      <Label htmlFor='search-input'>Pesquisar por</Label>
+      <Icon >
+        <Search />
       </Icon>
-
-      <Input placeholder='Pesquise por nome ou cpf' />
+      <Input placeholder='Pesquise por nome ou cpf' id ='search-input'/>
     </Wrapper>
   )
 }

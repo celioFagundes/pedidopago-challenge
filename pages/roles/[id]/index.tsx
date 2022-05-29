@@ -63,8 +63,12 @@ const Role: React.FC = () => {
                     <Table.Td>
                       {rule.permissions.includes('read') ? <CheckboxOn /> : <CheckboxOff />}
                     </Table.Td>
-                    <Table.Td>{rule.permissions.includes('write') ? <CheckboxOn /> : <CheckboxOff />}</Table.Td>
-                    <Table.Td>{rule.permissions.includes('delete') ? <CheckboxOn /> : <CheckboxOff />}</Table.Td>
+                    <Table.Td>
+                      {rule.permissions.includes('write') ? <CheckboxOn /> : <CheckboxOff />}
+                    </Table.Td>
+                    <Table.Td>
+                      {rule.permissions.includes('delete') ? <CheckboxOn /> : <CheckboxOff />}
+                    </Table.Td>
                   </Table.Row>
                 ))}
               </Table.Body>
@@ -75,6 +79,5 @@ const Role: React.FC = () => {
     </>
   )
 }
-
 
 export default Role
